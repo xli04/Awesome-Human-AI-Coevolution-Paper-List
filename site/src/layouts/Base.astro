@@ -37,7 +37,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 let canonicalPath = Astro.url.pathname;
 if (!canonicalPath.endsWith('/') && !/\.[a-z0-9]+$/i.test(canonicalPath)) canonicalPath += '/';
 const canonical = new URL(canonicalPath, Astro.site ?? 'https://xli04.github.io').toString();
-const ogImageUrl = new URL(ogImage ?? `${base}/og.png`, Astro.site ?? 'https://xli04.github.io').toString();
+const ogImageUrl = new URL(ogImage ?? `${base}/og-v2.png`, Astro.site ?? 'https://xli04.github.io').toString();
 
 const jsonLdArr: unknown[] = jsonLd
   ? Array.isArray(jsonLd) ? jsonLd : [jsonLd]
