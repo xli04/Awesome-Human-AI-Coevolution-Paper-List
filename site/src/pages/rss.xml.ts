@@ -6,7 +6,7 @@ export async function GET(context: { site: URL | undefined }) {
   const { canonical } = loadAllPapers();
   const recent = canonical.slice(0, 60);
   const base = (import.meta as any).env.BASE_URL.replace(/\/$/, '');
-  const origin = (context.site ?? new URL('https://osu-nlp-group.github.io')).toString().replace(/\/$/, '');
+  const origin = (context.site ?? new URL('https://xli04.github.io')).toString().replace(/\/$/, '');
   const siteWithBase = new URL(base + '/', origin + '/');
   return rss({
     title: SITE_TITLE,

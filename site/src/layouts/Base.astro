@@ -28,7 +28,7 @@ const {
   extraHead,
 } = Astro.props as Props;
 
-const fullTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · A curated list of GUI agent research`;
+const fullTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · A curated list of human-AI coevolution research`;
 const desc = description ?? SITE_DESCRIPTION;
 const starCount = await getStarCount();
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -36,8 +36,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Ensure trailing slash on canonical for directory-format outputs.
 let canonicalPath = Astro.url.pathname;
 if (!canonicalPath.endsWith('/') && !/\.[a-z0-9]+$/i.test(canonicalPath)) canonicalPath += '/';
-const canonical = new URL(canonicalPath, Astro.site ?? 'https://osu-nlp-group.github.io').toString();
-const ogImageUrl = new URL(ogImage ?? `${base}/og.png`, Astro.site ?? 'https://osu-nlp-group.github.io').toString();
+const canonical = new URL(canonicalPath, Astro.site ?? 'https://xli04.github.io').toString();
+const ogImageUrl = new URL(ogImage ?? `${base}/og.png`, Astro.site ?? 'https://xli04.github.io').toString();
 
 const jsonLdArr: unknown[] = jsonLd
   ? Array.isArray(jsonLd) ? jsonLd : [jsonLd]
@@ -51,8 +51,7 @@ const jsonLdArr: unknown[] = jsonLd
 
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
-    <meta name="keywords" content="GUI agent, GUI agents, GUI agent papers, computer-use agent, web agent, mobile agent, desktop agent, GUI grounding, GUI benchmark, paper list, awesome list, OSU NLP" />
-    <meta name="author" content="OSU NLP Group" />
+    <meta name="keywords" content="human-AI coevolution, human-AI collaboration, RLHF, preference learning, mutual adaptation, feedback loops, longitudinal HCI, co-creation, position paper, paper list, awesome list" />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content={ogType} />

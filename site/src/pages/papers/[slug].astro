@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 
 const { paper, related } = Astro.props as { paper: Paper; related: RelatedLite[] };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const siteOrigin = (Astro.site ?? new URL('https://osu-nlp-group.github.io')).toString().replace(/\/$/, '');
+const siteOrigin = (Astro.site ?? new URL('https://xli04.github.io')).toString().replace(/\/$/, '');
 const detailUrl = `${siteOrigin}${base}/papers/${paper.slug}/`;
 
 const tldrFallback = `${paper.title} — ${paper.publisher}, ${paper.date}. Authors: ${paper.authors.slice(0, 5).join(', ')}${paper.authors.length > 5 ? ', et al.' : ''}.`;

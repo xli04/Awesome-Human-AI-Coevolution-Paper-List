@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://osu-nlp-group.github.io/GUI-Agents-Paper-List/sitemap-index.xml
+Sitemap: https://xli04.github.io/Awesome-Human-AI-Coevolution-Paper-List/sitemap-index.xml
