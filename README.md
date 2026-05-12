@@ -1062,3 +1062,10 @@ _Surveys, position pieces, and theoretical frameworks that span multiple phases 
     - Category: PS, CC (Position & Survey, Collaboration & Co-Creation)
     - Keywords: design guidelines, human-AI interaction, CHI, adaptive UI
     - TLDR: Proposes 18 design guidelines for AI-infused interfaces, including "learn from user behavior" and "update and adapt cautiously."
+
+
+---
+
+## Acknowledgements
+
+Parts of the repository's design — the YAML-as-source-of-truth pipeline, the auto-generated README, and several visual conventions on the website — are adapted from the excellent [OSU-NLP-Group/GUI-Agents-Paper-List](https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List). The scope and taxonomy here are different (human-AI coevolution rather than GUI agents; four-phase framework rather than env-by-platform), but the underlying scaffolding owes a debt to that project. Thanks to its maintainers for open-sourcing the template.

@@ -25,7 +25,19 @@ function paperColors() {
         bar: '#7c9ec9',                 // navy on dark
         barAlt: '#a5bdd4',
         line: '#7c9ec9',
-        envColors: {                    // navy + brass family on dark
+        // Primary axis — five phase bands. We collapse emerging-phase-N
+        // into the corresponding main phase for the stacked area / donut
+        // so the visual story stays legible.
+        phaseColors: {
+          'phase-1':   '#7c9ec9',   // navy — Tool
+          'phase-2':   '#cdb89f',   // brass — Assistant
+          'phase-3':   '#9ab0a0',   // olive — Executor
+          'phase-4':   '#b89a78',   // bronze — Organization (currently empty)
+          'framework': '#a8a8b8',   // grey — Surveys & Position
+        } as Record<string, string>,
+        // Secondary axis — five theme categories. Slightly desaturated
+        // so they don't compete with the phase palette.
+        envColors: {
           'Collaboration & Co-Creation': '#7c9ec9',
           'Mutual Adaptation': '#cdb89f',
           'Human Feedback Loops': '#9ab0a0',
@@ -46,7 +58,14 @@ function paperColors() {
         bar: '#1e3a5f',
         barAlt: '#516b85',
         line: '#1e3a5f',
-        envColors: {                    // navy + brass + olive family on light
+        phaseColors: {                 // navy + brass + olive + bronze family
+          'phase-1':   '#1e3a5f',
+          'phase-2':   '#a0826d',
+          'phase-3':   '#5b7461',
+          'phase-4':   '#7d5e47',
+          'framework': '#6b6b87',
+        } as Record<string, string>,
+        envColors: {
           'Collaboration & Co-Creation': '#1e3a5f',
           'Mutual Adaptation': '#a0826d',
           'Human Feedback Loops': '#5b7461',
@@ -61,6 +80,27 @@ function paperColors() {
         tooltipBorder: 'rgba(31,29,26,0.12)',
       };
 }
+
+// Collapse an 8-tag phase value into its 5-tag aggregated form for the
+// quarterly trend and donut. Emerging tags fold into their main phase.
+function aggregatePhase(tag: string | null | undefined): string | null {
+  if (!tag) return null;
+  if (tag === 'emerging-phase-2') return 'phase-2';
+  if (tag === 'emerging-phase-3') return 'phase-3';
+  if (tag === 'emerging-phase-4') return 'phase-4';
+  return tag;
+}
+
+// Display labels for the 5 aggregated phase keys.
+const PHASE_AGG_LABEL: Record<string, string> = {
+  'phase-1':   'P1 · Tool',
+  'phase-2':   'P2 · Assistant (incl. EP2)',
+  'phase-3':   'P3 · Executor (incl. EP3)',
+  'phase-4':   'P4 · Organization (incl. EP4)',
+  'framework': 'Surveys & Position',
+};
+
+const PHASE_AGG_ORDER = ['phase-1', 'phase-2', 'phase-3', 'phase-4', 'framework'];
 
 const SHARED_TEXT = {
   fontFamily: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif',
@@ -87,31 +127,32 @@ function quarterKey(iso: string): string {
   return `${y} Q${q}`;
 }
 
-function buildQuarterly(papers: BrowserPaper[]) {
-  const envs = ['Collaboration & Co-Creation', 'Mutual Adaptation', 'Human Feedback Loops', 'Longitudinal HCI Studies', 'Position & Survey'];
+function buildQuarterlyByPhase(papers: BrowserPaper[]) {
+  const phases = PHASE_AGG_ORDER;
   const buckets = new Map<string, Record<string, number>>();
   for (const p of papers) {
     if (!p.dateISO || p.year < 2000) continue;
+    const agg = aggregatePhase(p.phase);
+    if (!agg) continue;
     const k = quarterKey(p.dateISO);
     if (!buckets.has(k)) {
       const init: Record<string, number> = { Total: 0 };
-      for (const e of envs) init[e] = 0;
+      for (const ph of phases) init[ph] = 0;
       buckets.set(k, init);
     }
     const row = buckets.get(k)!;
     row.Total += 1;
-    for (const e of p.envs) {
-      if (e in row) row[e] += 1;
-    }
+    if (agg in row) row[agg] += 1;
   }
   const keys = Array.from(buckets.keys()).sort();
-  return { keys, envs, buckets };
+  return { keys, phases, buckets };
 }
 
 export default function StatsCharts(props: Props) {
   let trendEl!: HTMLDivElement;
   let kwEl!: HTMLDivElement;
-  let envEl!: HTMLDivElement;
+  let phaseEl!: HTMLDivElement;
+  let themeEl!: HTMLDivElement;
   let instEl!: HTMLDivElement;
   let authorEl!: HTMLDivElement;
   let pubEl!: HTMLDivElement;
@@ -125,8 +166,11 @@ export default function StatsCharts(props: Props) {
     charts.length = 0;
     const c = paperColors();
 
-    // === 1. Quarterly trend — clean stacked area, no rainbow ===
-    const { keys, envs, buckets } = buildQuarterly(props.papers);
+    // === 1. Quarterly trend — stacked by aggregated phase ===
+    // The framework's central distribution claim becomes a chart:
+    // when did the literature start populating each phase?
+    const { keys, phases, buckets } = buildQuarterlyByPhase(props.papers);
+    const phaseLabelOf = (key: string) => PHASE_AGG_LABEL[key] ?? key;
     const trend = echarts.init(trendEl, null, { renderer: 'canvas' });
     trend.setOption({
       backgroundColor: c.bg,
@@ -137,16 +181,16 @@ export default function StatsCharts(props: Props) {
         axisPointer: { type: 'line', lineStyle: { color: c.muted, type: 'dashed' } },
       },
       legend: {
-        data: envs,
+        data: phases.map(phaseLabelOf),
         textStyle: { color: c.muted, fontSize: 11, ...SHARED_TEXT },
         top: 4,
-        right: 12,
+        left: 'center',
         icon: 'roundRect',
         itemWidth: 10,
         itemHeight: 10,
         itemGap: 14,
       },
-      grid: { left: 36, right: 16, top: 36, bottom: 48, containLabel: true },
+      grid: { left: 36, right: 16, top: 56, bottom: 48, containLabel: true },
       xAxis: {
         type: 'category', data: keys, boundaryGap: false,
         axisLabel: { color: c.muted, fontSize: 10, ...SHARED_TEXT, rotate: 45, margin: 12 },
@@ -160,16 +204,16 @@ export default function StatsCharts(props: Props) {
         axisTick: { show: false },
         splitLine: { lineStyle: { color: c.faint, type: 'solid' } },
       },
-      series: envs.map((e) => ({
-        name: e, type: 'area', stack: 'env',
-        type_: 'line',
-      })).map((s, i) => ({
-        name: s.name, type: 'line' as const, stack: 'env',
-        smooth: 0.5, symbol: 'none' as const,
-        lineStyle: { width: 0, color: c.envColors[s.name] },
-        areaStyle: { color: c.envColors[s.name], opacity: isDark() ? 0.55 : 0.7 },
+      series: phases.map((ph) => ({
+        name: phaseLabelOf(ph),
+        type: 'line' as const,
+        stack: 'phase',
+        smooth: 0.5,
+        symbol: 'none' as const,
+        lineStyle: { width: 0, color: c.phaseColors[ph] },
+        areaStyle: { color: c.phaseColors[ph], opacity: isDark() ? 0.55 : 0.7 },
         emphasis: { focus: 'series' as const },
-        data: keys.map((k) => buckets.get(k)![s.name]),
+        data: keys.map((k) => buckets.get(k)![ph]),
       })),
     });
     charts.push(trend);
@@ -237,12 +281,70 @@ export default function StatsCharts(props: Props) {
     // Stash the long-tail list for the chip cloud rendered below.
     setLongTail(sortedKw.slice(6, 56).map(([k, v]) => ({ k, v })));
 
-    // === 3. Environment donut — minimal, no inline labels, no legend marker noise ===
+    // === 3. Phase donut — the primary distribution chart. Aggregated to
+    //        five bands (P1 / P2+EP2 / P3+EP3 / P4+EP4 / Surveys). ===
+    const phaseCounter = new Map<string, number>();
+    for (const p of props.papers) {
+      const agg = aggregatePhase(p.phase);
+      if (!agg) continue;
+      phaseCounter.set(agg, (phaseCounter.get(agg) ?? 0) + 1);
+    }
+    // Maintain a fixed order so colors and legend match the trend chart.
+    const phaseEntries: [string, number][] = PHASE_AGG_ORDER
+      .map((k): [string, number] => [k, phaseCounter.get(k) ?? 0])
+      .filter(([, v]) => v > 0);
+    const phaseChart = echarts.init(phaseEl, null, { renderer: 'canvas' });
+    phaseChart.setOption({
+      backgroundColor: c.bg,
+      textStyle: SHARED_TEXT,
+      tooltip: {
+        ...tooltipBase(c),
+        formatter: (p: any) => `<span style="font-weight:600">${PHASE_AGG_LABEL[p.name] ?? p.name}</span><br/><span style="color:${c.muted}">${p.value} papers (${p.percent}%)</span>`,
+      },
+      legend: {
+        bottom: 6, left: 'center',
+        textStyle: { color: c.muted, fontSize: 11, ...SHARED_TEXT },
+        icon: 'circle', itemWidth: 8, itemHeight: 8, itemGap: 16,
+        formatter: (name: string) => PHASE_AGG_LABEL[name] ?? name,
+      },
+      series: [{
+        type: 'pie', radius: ['54%', '78%'], center: ['50%', '42%'],
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderColor: isDark() ? '#161a21' : '#faf9f5',
+          borderWidth: 4,
+        },
+        label: {
+          show: true,
+          formatter: (p: any) => `{n|${PHASE_AGG_LABEL[p.name] ?? p.name}}\n{v|${p.value}}`,
+          rich: {
+            n: { color: c.text, fontSize: 12, fontWeight: 600, ...SHARED_TEXT, lineHeight: 18 },
+            v: { color: c.muted, fontSize: 11, ...SHARED_TEXT },
+          },
+          alignTo: 'edge', edgeDistance: 6,
+        },
+        labelLine: { lineStyle: { color: c.muted, width: 1 }, length: 10, length2: 10 },
+        data: phaseEntries.map(([k, v]) => ({
+          name: k, value: v,
+          itemStyle: { color: c.phaseColors[k] ?? c.donut[0] },
+        })),
+      }],
+    });
+    phaseChart.on('click', (params: any) => {
+      // Click a slice → filter the index by that aggregated phase. We
+      // use a single ?phase= tag rather than expanding into EP+P, since
+      // the user clicked the aggregated band.
+      window.location.href = `${props.basePath}/papers?phase=${encodeURIComponent(params.name)}`;
+    });
+    charts.push(phaseChart);
+
+    // === 3b. Theme split — secondary axis (CC/MA/HF/LH/PS) ===
+    // Same structure as the phase donut but visually subordinate.
     const envCounter = new Map<string, number>();
     for (const p of props.papers) for (const e of p.envs) envCounter.set(e, (envCounter.get(e) ?? 0) + 1);
-    const envChart = echarts.init(envEl, null, { renderer: 'canvas' });
     const envEntries = Array.from(envCounter.entries());
-    envChart.setOption({
+    const themeChart = echarts.init(themeEl, null, { renderer: 'canvas' });
+    themeChart.setOption({
       backgroundColor: c.bg,
       textStyle: SHARED_TEXT,
       tooltip: {
@@ -252,35 +354,26 @@ export default function StatsCharts(props: Props) {
       legend: {
         bottom: 6, left: 'center',
         textStyle: { color: c.muted, fontSize: 11, ...SHARED_TEXT },
-        icon: 'circle', itemWidth: 8, itemHeight: 8, itemGap: 16,
+        icon: 'circle', itemWidth: 8, itemHeight: 8, itemGap: 14,
       },
       series: [{
-        type: 'pie', radius: ['54%', '78%'], center: ['50%', '46%'],
+        type: 'pie', radius: ['48%', '70%'], center: ['50%', '42%'],
         avoidLabelOverlap: true,
         itemStyle: {
-          borderColor: isDark() ? '#161a21' : '#fbf6ec',
-          borderWidth: 4,
+          borderColor: isDark() ? '#161a21' : '#faf9f5',
+          borderWidth: 3,
         },
-        label: {
-          show: true,
-          formatter: (p: any) => `{n|${p.name}}\n{v|${p.value}}`,
-          rich: {
-            n: { color: c.text, fontSize: 12, fontWeight: 600, ...SHARED_TEXT, lineHeight: 18 },
-            v: { color: c.muted, fontSize: 11, ...SHARED_TEXT },
-          },
-          alignTo: 'edge', edgeDistance: 6,
-        },
-        labelLine: { lineStyle: { color: c.muted, width: 1 }, length: 10, length2: 10 },
+        label: { show: false },
         data: envEntries.map(([k, v], i) => ({
           name: k, value: v,
           itemStyle: { color: c.envColors[k] ?? c.donut[i % c.donut.length] },
         })),
       }],
     });
-    envChart.on('click', (params: any) => {
+    themeChart.on('click', (params: any) => {
       window.location.href = `${props.basePath}/papers?env=${encodeURIComponent(params.name)}`;
     });
-    charts.push(envChart);
+    charts.push(themeChart);
 
     // === 4. Top institutions — single accent hue, count labels at end of bars ===
     const instCounter = new Map<string, number>();
@@ -422,55 +515,75 @@ export default function StatsCharts(props: Props) {
   onMount(() => {
     build();
     const ro = new ResizeObserver(() => resizeAll());
-    [trendEl, kwEl, envEl, instEl, authorEl, pubEl].forEach((el) => ro.observe(el));
+    [trendEl, kwEl, phaseEl, themeEl, instEl, authorEl, pubEl].forEach((el) => ro.observe(el));
     const mo = new MutationObserver(() => { build(); setTick((x) => x + 1); });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     onCleanup(() => { ro.disconnect(); mo.disconnect(); for (const c of charts) c.dispose(); });
   });
 
   return (
-    <div class="space-y-14">
+    <div class="space-y-16">
+
+      {/* ─── Hero: distribution by phase ─────────────────────────── */}
       <section>
-        <div class="flex items-baseline justify-between mb-1">
+        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-x-4">
+          <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50">Distribution by phase</h2>
+          <span class="text-xs text-ink-400 dark:text-ink-300">primary axis · aggregated to 5 bands</span>
+        </div>
+        <p class="text-xs text-ink-400 dark:text-ink-300 mb-4 max-w-[64ch]">
+          How papers in the index distribute across the four phases. Emerging-phase entries (EP2 / EP3 / EP4) are folded into the corresponding main phase for legibility — see the full 8-tag breakdown in the per-phase sections of the <a class="a-text" href={`${props.basePath}/`}>landing page</a>.
+        </p>
+        <div ref={(el) => (phaseEl = el)} class="w-full h-[420px]"></div>
+      </section>
+
+      {/* ─── Quarterly trend stacked by phase ─────────────────────── */}
+      <section>
+        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-x-4">
           <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50">Quarterly publication trend</h2>
-          <span class="text-xs text-ink-400 dark:text-ink-300">stacked by environment</span>
+          <span class="text-xs text-ink-400 dark:text-ink-300">stacked by phase</span>
         </div>
-        <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Number of papers added to the list per calendar quarter, from the earliest preprint date.</p>
-        <div ref={(el) => (trendEl = el)} class="w-full h-[340px]"></div>
+        <p class="text-xs text-ink-400 dark:text-ink-300 mb-4 max-w-[64ch]">Papers added per calendar quarter from the earliest preprint date, stacked by phase. Tracks when each phase began accumulating empirical evidence.</p>
+        <div ref={(el) => (trendEl = el)} class="w-full h-[360px]"></div>
       </section>
 
-      <section class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-12">
-        <div>
-          <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Environment split</h2>
-          <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Click a slice to filter the browse.</p>
-          <div ref={(el) => (envEl = el)} class="w-full h-[360px]"></div>
-        </div>
-        <div>
-          <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Top keywords</h2>
-          <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Width is paper count, darker is more frequent. Click any segment or chip to filter.</p>
-          <div ref={(el) => (kwEl = el)} class="w-full h-[60px]"></div>
-          <Show when={longTail().length > 0}>
-            <div class="mt-5">
-              <div class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 dark:text-ink-300 mb-3">Long tail</div>
-              <KeywordCloud items={longTail()} basePath={props.basePath} />
-            </div>
-          </Show>
-        </div>
+      {/* ─── Keyword bar + long tail ─────────────────────────────── */}
+      <section>
+        <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Top keywords</h2>
+        <p class="text-xs text-ink-400 dark:text-ink-300 mb-4 max-w-[64ch]">Width is paper count, darker is more frequent. Click any segment or chip to filter.</p>
+        <div ref={(el) => (kwEl = el)} class="w-full h-[68px]"></div>
+        <Show when={longTail().length > 0}>
+          <div class="mt-6">
+            <div class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 dark:text-ink-300 mb-3">Long tail</div>
+            <KeywordCloud items={longTail()} basePath={props.basePath} />
+          </div>
+        </Show>
       </section>
 
-      <section class="grid lg:grid-cols-2 gap-12">
-        <div>
+      {/* ─── Secondary axis: theme split ──────────────────────────── */}
+      <section>
+        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-x-4">
+          <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50">Theme split</h2>
+          <span class="text-xs text-ink-400 dark:text-ink-300">secondary axis · CC / MA / HF / LH / PS</span>
+        </div>
+        <p class="text-xs text-ink-400 dark:text-ink-300 mb-4 max-w-[64ch]">A paper may carry one or more themes. Click a slice to filter.</p>
+        <div ref={(el) => (themeEl = el)} class="w-full h-[320px]"></div>
+      </section>
+
+      {/* ─── Top institutions / authors ───────────────────────────── */}
+      <section class="grid lg:grid-cols-2 gap-10">
+        <div class="min-w-0">
           <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Top 25 institutions</h2>
           <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Click a name to filter.</p>
           <div ref={(el) => (instEl = el)} class="w-full h-[560px]"></div>
         </div>
-        <div>
+        <div class="min-w-0">
           <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Top 25 authors</h2>
           <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Click a name to filter.</p>
           <div ref={(el) => (authorEl = el)} class="w-full h-[560px]"></div>
         </div>
       </section>
 
+      {/* ─── Publication venues ──────────────────────────────────── */}
       <section>
         <h2 class="text-base font-semibold text-ink-700 dark:text-ink-50 mb-1">Publication venues</h2>
         <p class="text-xs text-ink-400 dark:text-ink-300 mb-4">Top 15 venues, excluding arXiv-only entries.</p>

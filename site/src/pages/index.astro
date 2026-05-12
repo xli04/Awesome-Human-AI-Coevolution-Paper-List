@@ -15,11 +15,13 @@ for (const p of canonical) {
 }
 
 const lastYear = new Date().getFullYear();
-const lastUpdated = canonical
-  .map((p) => p.dateISO)
-  .filter(Boolean)
-  .sort()
-  .at(-1) ?? '';
+// "Last entry" should display the most recent paper's human-readable
+// date — not the internal ISO anchor. parsePapers sorts newest-first
+// and anchors year-only dates to YYYY-12-31 for stable ordering, but
+// that anchored value is misleading in a date field on the masthead.
+// Using paper.date (the display string) gives "April 06, 2026" for
+// day-precision, "April 2026" for month-only, "2026" for year-only.
+const lastUpdated = canonical[0]?.date ?? '';
 const stars = await getStarCount();
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -63,7 +65,7 @@ const jsonLd = [
           </div>
           <div>
             <dt class="meta-label">Last entry</dt>
-            <dd class="meta-value mt-0.5">{lastUpdated.slice(0, 10) || '—'}</dd>
+            <dd class="meta-value mt-0.5">{lastUpdated || '—'}</dd>
           </div>
         </dl>
 

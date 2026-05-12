@@ -28,3 +28,8 @@ We welcome contributions from the community!
 - **Spotted an error?** Open an issue or PR to correct any paper metadata (authors, dates, institutions, etc.).
 
 {{insert_paper_list_section_here}}
+
+---
+
+Some of the design and scaffolding here is adapted from [OSU-NLP-Group/GUI-Agents-Paper-List](https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List). Thanks for their awesome work!
+
