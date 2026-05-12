@@ -96,9 +96,10 @@ html.dark, html.dark body {
     letter-spacing: 0.08em;
   }
 
-  /* Action link: a flat text affordance with right arrow. No filled button. */
+  /* Action link: a flat text affordance with right arrow. No filled button.
+     14.5px / small-caps so it reads as a clear CTA without being heavy. */
   .action-link {
-    @apply inline-flex items-center gap-1.5 text-[13px] font-medium tracking-wide;
+    @apply inline-flex items-center gap-2 text-[14.5px] font-medium tracking-wide;
     font-variant-caps: all-small-caps;
     letter-spacing: 0.08em;
   }

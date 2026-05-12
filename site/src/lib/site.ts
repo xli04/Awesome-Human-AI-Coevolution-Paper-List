@@ -6,6 +6,11 @@ export const REPO_NAME = 'Awesome-Human-AI-Coevolution-Paper-List';
 export const REPO_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
 export const REPO_RAW_BLOB = `${REPO_URL}/blob/main`;
 
+// Maintainer: the CHATS lab at Northeastern.
+export const MAINTAINER_NAME = 'CHATS-LAB';
+export const MAINTAINER_AFFILIATION = 'Northeastern University';
+export const MAINTAINER_URL = 'https://wyshi.github.io/group.html';
+
 // ─── Secondary axis: 5 paper-theme categories ─────────────────────
 
 export const ENV_ORDER = [
@@ -111,7 +116,7 @@ export const PHASE_HEADINGS: Record<string, { title: string; role: string; capab
     title: 'Humans Use AI as Organization',
     role: 'Human: Low · AI: Extremely High',
     capability: 'Systems thinking',
-    blurb: 'Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop systems thinking — shaping the system that produces actions rather than inspecting each action. The position paper states that no domain has fully entered Phase 4 yet, so this bucket is intentionally empty; the Emerging Phase 4 papers above are the closest existing literature.',
+    blurb: 'Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop systems thinking — shaping the system that produces actions rather than inspecting each action. No domain has officially entered Phase 4 yet, so this bucket is intentionally empty; the Emerging Phase 4 papers above are the closest existing literature.',
   },
   'framework': {
     title: 'Surveys & Position Papers',

@@ -940,7 +940,7 @@ _Papers that bridge autonomous-agent use with system-level coordination. Include
 
 ### Phase 4 — Humans Use AI as Organization  <sub>(0 papers)</sub>
 
-_Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop **systems thinking** — shaping the system that produces actions rather than inspecting each action. The position paper states that no domain has fully entered Phase 4 yet, so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode._
+_Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop **systems thinking** — shaping the system that produces actions rather than inspecting each action. No domain has officially entered Phase 4 yet, so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode._
 
 ### Surveys & Position Papers  <sub>(13 papers)</sub>
 

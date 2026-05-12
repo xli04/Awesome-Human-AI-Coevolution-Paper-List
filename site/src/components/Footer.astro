@@ -1,5 +1,5 @@
 ---
-import { REPO_URL, ENV_ORDER, ENV_ABBREV } from '../lib/site';
+import { REPO_URL, ENV_ORDER, ENV_ABBREV, MAINTAINER_NAME, MAINTAINER_AFFILIATION, MAINTAINER_URL } from '../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const year = new Date().getFullYear();
 ---
@@ -53,7 +53,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="mt-12 pt-6 border-t border-paper-300 dark:border-ink-600 flex flex-col sm:flex-row items-baseline gap-2 justify-between text-[11.5px] font-mono uppercase tracking-[0.1em] text-ink-400 dark:text-ink-300">
-      <div>© {year} CHATS-LAB, Northeastern University</div>
+      <div>© {year} <a class="hover:text-accent dark:hover:text-accent-dark transition-colors" href={MAINTAINER_URL} target="_blank" rel="noopener">{MAINTAINER_NAME}</a>, {MAINTAINER_AFFILIATION}</div>
       <div>Open-source · MIT-licensed · Generated with Astro</div>
     </div>
   </div>

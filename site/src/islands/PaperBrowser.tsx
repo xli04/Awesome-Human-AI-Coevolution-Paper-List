@@ -456,8 +456,12 @@ export default function PaperBrowser(props: Props) {
     cap = 12,
     headerExtra: (() => any) | null = null,
     formatLabel: (key: string) => string = (k) => k,
+    openByDefault = true,
   ) => {
-    const [open, setOpen] = createSignal(true);
+    // A facet stays expanded if it has an active selection — even if
+    // the section is configured to start collapsed — so the user can
+    // always see what's currently filtering.
+    const [open, setOpen] = createSignal(openByDefault || selected().size > 0);
     const [showAll, setShowAll] = createSignal(false);
     const filteredItems = createMemo(() => {
       const f = facetSearch().trim().toLowerCase();
@@ -544,13 +548,18 @@ export default function PaperBrowser(props: Props) {
           </Show>
         </div>
 
+        {/* Phase + Theme stay open by default since they're the
+            primary/secondary axes of the index. Deeper facets
+            (Keywords / Author / Institution / Publisher) start
+            folded — they re-expand automatically if the user has an
+            active selection in them. */}
         {filterSection('Phase', allPhases as any, phases, setPhases, () => '', () => {}, false, 8, null,
           (k) => `${PHASE_CODE[k] ?? k} — ${PHASE_HEADINGS[k]?.title ?? k}`)}
         {filterSection('Theme', allEnvs as any, envs, setEnvs, () => '', () => {}, false, 8)}
-        {filterSection('Keywords', allKeys as any, keys, setKeys, keyFacetSearch, setKeyFacetSearch, true, 12)}
-        {filterSection('Author', allAuthors as any, authors, setAuthors, authorFacetSearch, setAuthorFacetSearch)}
-        {filterSection('Institution', allInstitutions as any, institutions, setInstitutions, instFacetSearch, setInstFacetSearch)}
-        {filterSection('Publisher', allPublishers as any, publishers, setPublishers, pubFacetSearch, setPubFacetSearch)}
+        {filterSection('Keywords', allKeys as any, keys, setKeys, keyFacetSearch, setKeyFacetSearch, true, 12, null, undefined, false)}
+        {filterSection('Author', allAuthors as any, authors, setAuthors, authorFacetSearch, setAuthorFacetSearch, true, 12, null, undefined, false)}
+        {filterSection('Institution', allInstitutions as any, institutions, setInstitutions, instFacetSearch, setInstFacetSearch, true, 12, null, undefined, false)}
+        {filterSection('Publisher', allPublishers as any, publishers, setPublishers, pubFacetSearch, setPubFacetSearch, true, 12, null, undefined, false)}
 
         <DateRangeSection
           histogram={monthHistogram()}

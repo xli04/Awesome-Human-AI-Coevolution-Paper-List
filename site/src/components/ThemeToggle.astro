@@ -82,14 +82,25 @@
 </style>
 
 <script is:inline>
+  // Bind the click handler on every page load — including after Astro
+  // view-transition navigations. The previous IIFE pattern ran exactly
+  // once at first load, so subsequent navigations got a new toggle
+  // button in the DOM with no click handler attached.
   (function () {
-    const btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      const root = document.documentElement;
-      const next = root.classList.contains('dark') ? 'light' : 'dark';
-      root.classList.toggle('dark', next === 'dark');
-      try { localStorage.setItem('theme', next); } catch {}
-    });
+    function bind() {
+      const btn = document.getElementById('theme-toggle');
+      if (!btn || btn.dataset.themeBound === '1') return;
+      btn.dataset.themeBound = '1';
+      btn.addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.classList.contains('dark') ? 'light' : 'dark';
+        root.classList.toggle('dark', next === 'dark');
+        try { localStorage.setItem('theme', next); } catch {}
+      });
+    }
+    // Initial cold load.
+    bind();
+    // After every Astro view-transition navigation.
+    document.addEventListener('astro:page-load', bind);
   })();
 </script>
