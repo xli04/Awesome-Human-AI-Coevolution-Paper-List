@@ -27,7 +27,7 @@ const stars = await getStarCount();
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const siteUrl = (Astro.site ?? new URL('https://xli04.github.io')).toString().replace(/\/$/, '') + base;
 
-const description = `An index of ${canonical.length}+ research papers on human–AI coevolution, organized by the four-phase framework — Tool, Assistant, Executor, Organization.`;
+const description = `An index of ${canonical.length}+ research papers on how humans must evolve to use AI well as AI advances. Organized by the four-phase framework — Humans Use AI as Tool, Assistant, Executor, Organization.`;
 
 const jsonLd = [
   {
@@ -85,15 +85,15 @@ const jsonLd = [
         <p class="heading-eyebrow">Human–AI Coevolution Index</p>
 
         <h1 class="kicker-xl mt-6 text-ink-700 dark:text-ink-50 max-w-[22ch]">
-          An index of research on how <em class="text-accent dark:text-accent-dark italic">humans must evolve</em> as AI evolves.
+          An index of research on how <em class="text-accent dark:text-accent-dark italic">humans must evolve</em> to use AI well as AI advances.
         </h1>
 
         <div class="mt-8 text-[16.5px] text-ink-600 dark:text-ink-200 leading-[1.7] max-w-[60ch] space-y-5">
           <p>
-            Grounded in a <strong class="text-ink-700 dark:text-ink-50">four-phase framework</strong> — Tool · Assistant · Executor · Organization — for how humans use AI in their work. As AI takes on more, humans must develop the matching capability to use it well: critical thinking, evaluative expertise, metacognitive monitoring, and systems thinking.
+            Grounded in a <strong class="text-ink-700 dark:text-ink-50">four-phase framework</strong> — Humans Use AI as <em class="italic">Tool, Assistant, Executor, Organization</em> — for how humans use AI in their work. As AI advances, humans need to develop the matching capabilities to use it well: <em class="italic">critical thinking, evaluative expertise, metacognitive monitoring, systems thinking</em>.
           </p>
           <p>
-            Each entry is grounded evidence for one phase. The list documents how human capabilities are <em class="italic">empowered</em> and <em class="italic">weakened</em> by AI advancement, and what humans and AI systems can do to co-evolve well.
+            Each entry is grounded evidence for one phase: what capability humans must sustain at that phase, how it can weaken without active effort, and how AI systems can be designed to support that human evolution.
           </p>
         </div>
 

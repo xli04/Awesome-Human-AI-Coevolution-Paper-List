@@ -1,8 +1,8 @@
 # Awesome Human-AI Coevolution Paper List
 
-A curated index of **{{insert_paper_count_here}}** research papers on **human-AI coevolution**, organized by the four-phase framework — _Tool · Assistant · Executor · Organization_ — for how humans use AI in their work. Each paper is grounded evidence for one phase, illustrating either the human capability empowered or the failure mode that emerges when human evolution lags AI's.
+A curated index of **{{insert_paper_count_here}}** research papers on **how humans must evolve to use AI well as AI advances**. Organized by the four-phase framework — _Humans Use AI as Tool · Assistant · Executor · Organization_. Each paper is grounded evidence for one phase: what capability humans must sustain at that phase, how it weakens without active effort, and how AI systems can be designed to support that human evolution.
 
-> **Why phases.** As AI advances, the way humans use it shifts from full execution to oversight to governance, and each phase brings distinct impacts on human ability: weakened reasoning, missed flaws, undetected drift, lost goal traceability. The list curates research that **documents these effects or argues about how they should be addressed** — that is, the bidirectional human-AI coevolution literature, viewed through the phased lens.
+> As humans delegate more to AI, the capabilities humans need shift: from critical thinking, to evaluative expertise, to metacognitive monitoring, to systems thinking. When human evolution lags AI advancement, the failure modes pile up: weakened reasoning, polished-but-flawed artifacts approved, autonomous workflows drifting unmonitored, coordinated agent systems running opaque. This index curates the research that documents that human side.
 
 The structured store [`papers.yaml`](papers.yaml) is the source of truth — the README, statistics, and the website are auto-generated from it. See [`CLAUDE.md`](CLAUDE.md) for the schema and contribution workflow.
 

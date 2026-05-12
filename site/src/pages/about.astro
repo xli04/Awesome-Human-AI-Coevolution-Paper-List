@@ -4,10 +4,10 @@ import { REPO_URL, REPO_RAW_BLOB, ENV_ORDER, ENV_ABBREV } from '../lib/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const categories: Record<string, string> = {
-  'Collaboration & Co-Creation': 'Humans and AI working jointly on a task — how human strategy and AI outputs reshape each other within and across sessions.',
-  'Mutual Adaptation':           'Both human and AI behavior measurably change in response to each other over time.',
-  'Human Feedback Loops':        'RLHF, preference learning, training-from-use, with explicit treatment of how the trained model reshapes future inputs.',
-  'Longitudinal HCI Studies':    'Real-world deployments over weeks or months measuring shifts in human behavior, skill, and norms around AI.',
+  'Collaboration & Co-Creation': 'Humans and AI working jointly on a task — how the human\'s strategy and the AI\'s outputs reshape each other within and across sessions.',
+  'Mutual Adaptation':           'Both human and AI behaviour measurably change in response to each other over time.',
+  'Human Feedback Loops':        'RLHF, preference learning, training-from-use — with explicit treatment of how the trained model reshapes future human inputs.',
+  'Longitudinal HCI Studies':    'Real-world deployments over weeks or months measuring shifts in human behaviour, skill, and norms around AI.',
   'Position & Survey':           'Framing pieces, surveys, and theoretical frameworks that argue for or characterize the coevolutionary lens.',
 };
 ---
@@ -28,11 +28,11 @@ const categories: Record<string, string> = {
 
       <div>
         <p class="heading-eyebrow">About</p>
-        <h1 class="kicker-lg mt-5 text-ink-700 dark:text-ink-50 max-w-[20ch]">A bidirectional index, openly maintained.</h1>
+        <h1 class="kicker-lg mt-5 text-ink-700 dark:text-ink-50 max-w-[22ch]">A human-centered index of human-AI coevolution.</h1>
 
         <div class="mt-10 text-[15.5px] text-ink-700 dark:text-ink-100 leading-[1.78] space-y-6 max-w-[62ch]">
           <p>
-            The <a class="a-text" href={REPO_URL} target="_blank" rel="noopener">Human–AI Coevolution Index</a> is a curated, openly maintained list of research on the process by which humans and AI systems continuously shape and reshape each other. The site is a <strong class="text-ink-700 dark:text-ink-50">presentation layer</strong> — every paper, link, author, and tag lives in <a class="a-text" href={`${REPO_RAW_BLOB}/papers.yaml`} target="_blank" rel="noopener"><code class="font-mono text-[14px]">papers.yaml</code></a>; the site adds search, filters, and visualisations.
+            The <a class="a-text" href={REPO_URL} target="_blank" rel="noopener">Human–AI Coevolution Index</a> is a curated, openly maintained list of research on <strong class="text-ink-700 dark:text-ink-50">how humans must evolve to use AI well as AI advances</strong>. As humans delegate more to AI, the capabilities humans need on their own side change — from critical thinking, to evaluative expertise, to metacognitive monitoring, to systems thinking. This index curates the research that documents that human evolution. The site is a <strong class="text-ink-700 dark:text-ink-50">presentation layer</strong>: every paper, link, author, and tag lives in <a class="a-text" href={`${REPO_RAW_BLOB}/papers.yaml`} target="_blank" rel="noopener"><code class="font-mono text-[14px]">papers.yaml</code></a>.
           </p>
 
           <h2 class="kicker text-ink-700 dark:text-ink-50 pt-6 flex items-baseline gap-3 not-prose">
@@ -40,10 +40,10 @@ const categories: Record<string, string> = {
             <span>Scope</span>
           </h2>
           <p>
-            The canonical index includes only papers where <em class="italic">both directions of influence</em> are studied or argued for: humans changing AI (data, feedback, preferences, deployment, prompts) <strong>and</strong> AI changing humans (skill, behaviour, cognition, language, workflows, downstream data distributions). One-way capability papers and pure one-shot UX studies belong elsewhere.
+            The canonical index includes papers that bear on <em class="italic">how humans develop and sustain the capabilities needed to use AI well</em> at each phase. Many of these papers also document how humans' choices shape future AI — for instance, how feedback signals during use become training data — but the framing is human-first: <strong class="text-ink-700 dark:text-ink-50">human capability is the dependent variable; AI is the environment that's changing around it</strong>. One-way capability papers and one-shot UX studies belong elsewhere.
           </p>
           <p>
-            Papers that materially inform the area but do not satisfy the bidirectional bar — foundational RLHF method papers, single-direction behavioural studies later cited by coevolution work, related theoretical frameworks — go into <a class="a-text" href={`${base}/adjacent`}>adjacent papers</a>. Adjacent entries are excluded from the main browse, stats, and per-category groupings so the canonical signal stays scoped.
+            Papers that materially inform the area but don't centre the human side — foundational RLHF method papers without a coevolutionary lens, single-direction behavioural studies later cited by this work, related theoretical frameworks — go into <a class="a-text" href={`${base}/adjacent`}>adjacent papers</a>. Adjacent entries are excluded from the main browse, stats, and per-category groupings so the canonical signal stays scoped.
           </p>
 
           <h2 class="kicker text-ink-700 dark:text-ink-50 pt-6 flex items-baseline gap-3 not-prose">

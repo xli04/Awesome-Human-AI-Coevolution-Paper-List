@@ -1,8 +1,8 @@
 # Awesome Human-AI Coevolution Paper List
 
-A curated index of **110** research papers on **human-AI coevolution**, organized by the four-phase framework — _Tool · Assistant · Executor · Organization_ — for how humans use AI in their work. Each paper is grounded evidence for one phase, illustrating either the human capability empowered or the failure mode that emerges when human evolution lags AI's.
+A curated index of **110** research papers on **how humans must evolve to use AI well as AI advances**. Organized by the four-phase framework — _Humans Use AI as Tool · Assistant · Executor · Organization_. Each paper is grounded evidence for one phase: what capability humans must sustain at that phase, how it weakens without active effort, and how AI systems can be designed to support that human evolution.
 
-> **Why phases.** As AI advances, the way humans use it shifts from full execution to oversight to governance, and each phase brings distinct impacts on human ability: weakened reasoning, missed flaws, undetected drift, lost goal traceability. The list curates research that **documents these effects or argues about how they should be addressed** — that is, the bidirectional human-AI coevolution literature, viewed through the phased lens.
+> As humans delegate more to AI, the capabilities humans need shift: from critical thinking, to evaluative expertise, to metacognitive monitoring, to systems thinking. When human evolution lags AI advancement, the failure modes pile up: weakened reasoning, polished-but-flawed artifacts approved, autonomous workflows drifting unmonitored, coordinated agent systems running opaque. This index curates the research that documents that human side.
 
 The structured store [`papers.yaml`](papers.yaml) is the source of truth — the README, statistics, and the website are auto-generated from it. See [`CLAUDE.md`](CLAUDE.md) for the schema and contribution workflow.
 
@@ -35,9 +35,9 @@ We welcome contributions from the community!
 
 > Phases come from the four-phase framework (_Tool · Assistant · Executor · Organization_) — see [`deep_research/phased_framework.md`](deep_research/phased_framework.md) for definitions and the [position paper PDF](deep_research/) for full context. Each paper is assigned a single phase (with `emerging-phase-X` for clear bridge cases). Within a phase, papers are listed newest-first. The secondary 5-category axis (CC/MA/HF/LH/PS) is shown on each entry.
 
-### Phase 1 — AI as Tool  <sub>(40 papers)</sub>
+### Phase 1 — Humans Use AI as Tool  <sub>(40 papers)</sub>
 
-_Humans use AI to answer questions; the human capability at risk is **critical thinking**. The dominant failure mode is passive acceptance — uncritical absorption of AI-provided knowledge, leading to reasoning atrophy and sycophantic feedback that reinforces existing bias._
+_Humans use AI to answer questions. To use AI well here, humans must sustain **critical thinking** — comparing AI outputs against their own reasoning rather than absorbing them passively. The capability erodes through uncritical acceptance, and the feedback that erosion produces pushes models toward sycophancy._
 
 - [AI Assistance Reduces Persistence and Hurts Independent Performance](https://arxiv.org/abs/2604.04721)
     - Grace Liu, Brian Christian, Tsvetomira Dumbalska, Michiel A. Bakker, Rachit Dubey
@@ -402,7 +402,7 @@ _Humans use AI to answer questions; the human capability at risk is **critical t
 
 ### Emerging Phase 2 — Tool → Assistant  <sub>(6 papers)</sub>
 
-_Papers that bridge reasoning-level use with artifact production. AI prompts the human's thinking but begins to produce ideation/draft material._
+_Papers that bridge reasoning-level use with artifact production. Humans use AI to prompt their thinking but begin to produce drafts or ideation material that needs evaluation, not just judgement._
 
 - [Examining University Students' Engagement with ChatGPT in English Essay Writing: Interaction Patterns and Perceptions](https://link.springer.com/article/10.1007/s40299-025-01076-9)
     - Hyeji Jang, Lingxi Jin, Hyo-Jeong So
@@ -459,9 +459,9 @@ _Papers that bridge reasoning-level use with artifact production. AI prompts the
     - TLDR: N=156 study comparing 0/1/3/6 parallel phrase suggestions; multiple suggestions help ideation at cost of efficiency, stronger benefits for non-native writers.
 
 
-### Phase 2 — AI as Assistant  <sub>(32 papers)</sub>
+### Phase 2 — Humans Use AI as Assistant  <sub>(32 papers)</sub>
 
-_AI produces bounded artifacts (drafts, code snippets, partial implementations); the human capability at risk is **evaluative expertise**. The dominant failure mode is superficial verification — approving polished but flawed work._
+_Humans use AI to produce bounded artifacts (drafts, code snippets, partial implementations) and verify them. To use AI well here, humans must sustain **evaluative expertise** — knowing what good work satisfies, including failure modes. The capability erodes when polished output is accepted on surface signals._
 
 - [Agentic AI in the Software Development Lifecycle](https://arxiv.org/abs/2604.26275)
     - Happy Bhati
@@ -754,7 +754,7 @@ _AI produces bounded artifacts (drafts, code snippets, partial implementations);
 
 ### Emerging Phase 3 — Assistant → Executor  <sub>(4 papers)</sub>
 
-_Papers that bridge artifact-level assistance with end-to-end autonomy. Humans still drive the workflow but delegate sequences of steps._
+_Papers that bridge artifact-level assistance with end-to-end autonomy. Humans still drive the workflow but begin to delegate sequences of steps, demanding monitoring on top of evaluation._
 
 - [SWE-chat: Coding Agent Interactions From Real Users in the Wild](https://arxiv.org/abs/2604.20779)
     - Joachim Baumann, Vishakh Padmakumar, Xiang Li, John Yang, Diyi Yang, Sanmi Koyejo
@@ -793,9 +793,9 @@ _Papers that bridge artifact-level assistance with end-to-end autonomy. Humans s
     - TLDR: 600+ collaborative coding tasks across 12 libraries / 4 languages; agents achieve 30% lower success rates when working together vs. solo.
 
 
-### Phase 3 — AI as Executor  <sub>(8 papers)</sub>
+### Phase 3 — Humans Use AI as Executor  <sub>(8 papers)</sub>
 
-_AI completes end-to-end workflows; humans set goals. The human capability at risk is **metacognitive monitoring**. The dominant failure mode is vigilance loss — undetected drift in autonomous workflows._
+_Humans use AI to complete end-to-end workflows, setting goals and intervening when execution drifts. To use AI well here, humans must practice **metacognitive monitoring** — selective inspection of where the workflow can fail. The capability erodes through passive supervision, producing scaled errors humans cannot catch in time._
 
 - [Personality and Personal AI Agents: A Co-Evolutionary Framework (PACE)](https://ijonses.net/index.php/ijonses/article/view/5801)
     - Oluwatoyosi Ogunsola
@@ -872,7 +872,7 @@ _AI completes end-to-end workflows; humans set goals. The human capability at ri
 
 ### Emerging Phase 4 — Executor → Organization  <sub>(7 papers)</sub>
 
-_Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — i.e., contributions that argue *toward* full Phase 4 mechanisms without demonstrating a domain having fully arrived there._
+_Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — contributions that argue *toward* Phase 4 governance without demonstrating a domain having fully arrived there._
 
 - [Trust in human-AI collaboration in finance: a bibliometric-systematic literature review](https://doi.org/10.1007/s00146-026-03049-y)
     - Mario Mirabile, Giovanni Emanuele Corazza, Jose María Alonso-Moral
@@ -938,13 +938,13 @@ _Papers that bridge autonomous-agent use with system-level coordination. Include
     - TLDR: CAFL algorithm provably breaks feedback loops via causal inference; applies to any recommender that optimizes a training loss.
 
 
-### Phase 4 — AI as Organization  <sub>(0 papers)</sub>
+### Phase 4 — Humans Use AI as Organization  <sub>(0 papers)</sub>
 
-_AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper states that no domain has fully entered Phase 4 yet — so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode._
+_Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop **systems thinking** — shaping the system that produces actions rather than inspecting each action. The position paper states that no domain has fully entered Phase 4 yet, so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode._
 
 ### Surveys & Position Papers  <sub>(13 papers)</sub>
 
-_Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for the area rather than grounded evidence for any one phase._
+_Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for how to think about humans using AI well, rather than grounded evidence for any one phase._
 
 - [Becoming human in the age of AI: cognitive co-evolutionary processes](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1734048/full)
     - Anders Högberg

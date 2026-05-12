@@ -194,22 +194,22 @@ PHASE_ORDER = [
 ]
 
 PHASE_HEADINGS = {
-    "phase-1":          ("Phase 1 — AI as Tool",
-                         "Humans use AI to answer questions; the human capability at risk is **critical thinking**. The dominant failure mode is passive acceptance — uncritical absorption of AI-provided knowledge, leading to reasoning atrophy and sycophantic feedback that reinforces existing bias."),
+    "phase-1":          ("Phase 1 — Humans Use AI as Tool",
+                         "Humans use AI to answer questions. To use AI well here, humans must sustain **critical thinking** — comparing AI outputs against their own reasoning rather than absorbing them passively. The capability erodes through uncritical acceptance, and the feedback that erosion produces pushes models toward sycophancy."),
     "emerging-phase-2": ("Emerging Phase 2 — Tool → Assistant",
-                         "Papers that bridge reasoning-level use with artifact production. AI prompts the human's thinking but begins to produce ideation/draft material."),
-    "phase-2":          ("Phase 2 — AI as Assistant",
-                         "AI produces bounded artifacts (drafts, code snippets, partial implementations); the human capability at risk is **evaluative expertise**. The dominant failure mode is superficial verification — approving polished but flawed work."),
+                         "Papers that bridge reasoning-level use with artifact production. Humans use AI to prompt their thinking but begin to produce drafts or ideation material that needs evaluation, not just judgement."),
+    "phase-2":          ("Phase 2 — Humans Use AI as Assistant",
+                         "Humans use AI to produce bounded artifacts (drafts, code snippets, partial implementations) and verify them. To use AI well here, humans must sustain **evaluative expertise** — knowing what good work satisfies, including failure modes. The capability erodes when polished output is accepted on surface signals."),
     "emerging-phase-3": ("Emerging Phase 3 — Assistant → Executor",
-                         "Papers that bridge artifact-level assistance with end-to-end autonomy. Humans still drive the workflow but delegate sequences of steps."),
-    "phase-3":          ("Phase 3 — AI as Executor",
-                         "AI completes end-to-end workflows; humans set goals. The human capability at risk is **metacognitive monitoring**. The dominant failure mode is vigilance loss — undetected drift in autonomous workflows."),
+                         "Papers that bridge artifact-level assistance with end-to-end autonomy. Humans still drive the workflow but begin to delegate sequences of steps, demanding monitoring on top of evaluation."),
+    "phase-3":          ("Phase 3 — Humans Use AI as Executor",
+                         "Humans use AI to complete end-to-end workflows, setting goals and intervening when execution drifts. To use AI well here, humans must practice **metacognitive monitoring** — selective inspection of where the workflow can fail. The capability erodes through passive supervision, producing scaled errors humans cannot catch in time."),
     "emerging-phase-4": ("Emerging Phase 4 — Executor → Organization",
-                         "Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — i.e., contributions that argue *toward* full Phase 4 mechanisms without demonstrating a domain having fully arrived there."),
-    "phase-4":          ("Phase 4 — AI as Organization",
-                         "AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper states that no domain has fully entered Phase 4 yet — so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode."),
+                         "Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — contributions that argue *toward* Phase 4 governance without demonstrating a domain having fully arrived there."),
+    "phase-4":          ("Phase 4 — Humans Use AI as Organization",
+                         "Humans use AI to coordinate systems of work across many agents. To use AI well here, humans must develop **systems thinking** — shaping the system that produces actions rather than inspecting each action. The position paper states that no domain has fully entered Phase 4 yet, so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode."),
     "framework":        ("Surveys & Position Papers",
-                         "Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for the area rather than grounded evidence for any one phase."),
+                         "Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for how to think about humans using AI well, rather than grounded evidence for any one phase."),
 }
 
 
