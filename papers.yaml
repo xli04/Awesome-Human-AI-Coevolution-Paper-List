@@ -2539,7 +2539,7 @@
   publisher: Nature 2024
   envs:
   - Position & Survey
-  phase: phase-4
+  phase: emerging-phase-4
   keywords:
   - model collapse
   - recursive training
@@ -2942,7 +2942,7 @@
   publisher: arXiv
   envs:
   - Human Feedback Loops
-  phase: phase-4
+  phase: emerging-phase-4
   keywords:
   - constitutional AI
   - RLAIF
@@ -3079,7 +3079,7 @@
   publisher: ACM TORS 2025
   envs:
   - Human Feedback Loops
-  phase: phase-4
+  phase: emerging-phase-4
   keywords:
   - causal inference
   - CAFL

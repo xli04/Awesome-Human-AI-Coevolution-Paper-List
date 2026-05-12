@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#3057c4"/>
-  <text x="16" y="22" font-family="ui-sans-serif,system-ui,Inter,Arial" font-size="18" font-weight="700" text-anchor="middle" fill="#fbf6ec">G</text>
+  <!-- Ivory tile with a single navy rule, echoing the section-rule motif. -->
+  <rect width="32" height="32" rx="5" fill="#faf9f5"/>
+  <rect x="6" y="14" width="14" height="2" fill="#1e3a5f"/>
+  <rect x="6" y="20" width="8" height="2" fill="#1e3a5f" opacity="0.5"/>
 </svg>

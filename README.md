@@ -11,7 +11,7 @@ The structured store [`papers.yaml`](papers.yaml) is the source of truth — the
 ![Top 25 research keywords](readme_template/statistics/keyword_bar_chart.png)
 
 ## Index by Phase
-**Phase 1** (40) · **Emerging Phase 2** (6) · **Phase 2** (32) · **Emerging Phase 3** (4) · **Phase 3** (8) · **Emerging Phase 4** (4) · **Phase 4** (3) · **Framework & Cross-Cutting Work** (13)
+**Phase 1** (40) · **Emerging Phase 2** (6) · **Phase 2** (32) · **Emerging Phase 3** (4) · **Phase 3** (8) · **Emerging Phase 4** (7) · **Phase 4** (0) · **Surveys & Position Papers** (13)
 
 ### Secondary axis — paper themes
 
@@ -870,9 +870,9 @@ _AI completes end-to-end workflows; humans set goals. The human capability at ri
     - TLDR: Bounded-Memory Adaptation Model integrated into decision framework; robot guides human toward effective strategy while maintaining trust.
 
 
-### Emerging Phase 4 — Executor → Organization  <sub>(4 papers)</sub>
+### Emerging Phase 4 — Executor → Organization  <sub>(7 papers)</sub>
 
-_Papers that bridge autonomous-agent use with system-level coordination. Ecosystem-level dynamics or limited governance over agent teams._
+_Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — i.e., contributions that argue *toward* full Phase 4 mechanisms without demonstrating a domain having fully arrived there._
 
 - [Trust in human-AI collaboration in finance: a bibliometric-systematic literature review](https://doi.org/10.1007/s00146-026-03049-y)
     - Mario Mirabile, Giovanni Emanuele Corazza, Jose María Alonso-Moral
@@ -910,11 +910,6 @@ _Papers that bridge autonomous-agent use with system-level coordination. Ecosyst
     - Keywords: monoculture, model similarity, recourse, LLM evaluation
     - TLDR: Empirically tests algorithmic monoculture vs. multiplicity claims across 50 LLMs (1B–141B parameters). Finds reality is a middle ground — model similarity is real but variations in prompts produce some diversity.
 
-
-### Phase 4 — AI as Organization  <sub>(3 papers)</sub>
-
-_AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper notes that no domain has fully entered Phase 4 yet._
-
 - [The Curse of Recursion: Training on Generated Data Makes Models Forget](https://arxiv.org/abs/2305.17493)
     - Ilia Shumailov, Zakhar Shumaylov, Yiren Zhao, Yarin Gal, Nicolas Papernot, Ross Anderson
     - Institutions: Oxford, Cambridge, Imperial, Toronto
@@ -943,9 +938,13 @@ _AI coordinates systems of work across many agents; the human capability at risk
     - TLDR: CAFL algorithm provably breaks feedback loops via causal inference; applies to any recommender that optimizes a training loss.
 
 
-### Framework & Cross-Cutting Work  <sub>(13 papers)</sub>
+### Phase 4 — AI as Organization  <sub>(0 papers)</sub>
 
-_Position pieces, surveys, and theoretical frameworks that span multiple phases._
+_AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper states that no domain has fully entered Phase 4 yet — so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode._
+
+### Surveys & Position Papers  <sub>(13 papers)</sub>
+
+_Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for the area rather than grounded evidence for any one phase._
 
 - [Becoming human in the age of AI: cognitive co-evolutionary processes](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1734048/full)
     - Anders Högberg

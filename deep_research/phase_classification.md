@@ -2,6 +2,8 @@
 
 Generated against the phased framework in `phased_framework.md` and the position paper. One tag per paper. Conservative on emerging tags.
 
+**Update (2026-05-12):** The original classification placed 3 papers in `phase-4`. Per the position paper's claim that no domain has fully entered Phase 4 yet, these three were moved to `emerging-phase-4`. The `phase-4` bucket is now intentionally empty; the affected entries are: *Constitutional AI* (Bai et al.), *The Curse of Recursion* (Shumailov et al.), and *Breaking Feedback Loops in Recommender Systems with Causal Inference* (Krauth et al.). All three argue toward Phase 4 mechanisms without demonstrating a domain at Phase 4 — which is exactly what `emerging-phase-4` is for.
+
 ## Summary counts
 
 | Tag | Count |
@@ -11,8 +13,8 @@ Generated against the phased framework in `phased_framework.md` and the position
 | phase-2 | 32 |
 | emerging-phase-3 | 4 |
 | phase-3 | 8 |
-| emerging-phase-4 | 4 |
-| phase-4 | 3 |
+| emerging-phase-4 | 7 |
+| phase-4 | 0 |
 | framework | 13 |
 | **Total** | 110 |
 
@@ -236,7 +238,7 @@ The grouped sections above provide the per-paper rationale. The table below is t
 - 68 Does Writing with LMs Reduce Diversity? — **phase-2**
 - 69 Sea Change in Software Dev (Dohmke) — **phase-2**
 - 70 Human-AI Coevolution (Pedreschi) — **framework**
-- 71 Curse of Recursion — **phase-4**
+- 71 Curse of Recursion — **emerging-phase-4** _(moved from phase-4 on 2026-05-12; see header note)_
 - 72 AI in communication (Hohenstein) — **phase-1**
 - 73 Generative AI at Work (Brynjolfsson) — **phase-2**
 - 74 AI Ghostwriter Effect — **phase-2**
@@ -246,11 +248,11 @@ The grouped sections above provide the per-paper rationale. The table below is t
 - 78 Mental Model Theory of Trust — **framework**
 - 79 Modeling Trust & Monitoring (Zahedi 2022) — **phase-3**
 - 80 Wordcraft — **phase-2**
-- 81 Constitutional AI — **phase-4**
+- 81 Constitutional AI — **emerging-phase-4** _(moved from phase-4 on 2026-05-12; see header note)_
 - 82 Perry insecure code — **phase-2**
 - 83 CUPS (Mozannar) — **phase-2**
 - 84 Dramatron — **phase-2**
-- 85 Breaking Feedback Loops (Krauth) — **phase-4**
+- 85 Breaking Feedback Loops (Krauth) — **emerging-phase-4** _(moved from phase-4 on 2026-05-12; see header note)_
 - 86 Grounded Copilot — **phase-2**
 - 87 Productivity Assessment Neural Code Completion — **phase-2**
 - 88 Expectation vs Experience Copilot — **phase-2**
@@ -286,8 +288,8 @@ The grouped sections above provide the per-paper rationale. The table below is t
 | phase-2 | 32 |
 | emerging-phase-3 | 4 |
 | phase-3 | 8 |
-| emerging-phase-4 | 4 |
-| phase-4 | 3 |
+| emerging-phase-4 | 7 |
+| phase-4 | 0 |
 | framework | 13 |
 | **Total** | 110 |
 

@@ -187,11 +187,11 @@ PHASE_HEADINGS = {
     "phase-3":          ("Phase 3 — AI as Executor",
                          "AI completes end-to-end workflows; humans set goals. The human capability at risk is **metacognitive monitoring**. The dominant failure mode is vigilance loss — undetected drift in autonomous workflows."),
     "emerging-phase-4": ("Emerging Phase 4 — Executor → Organization",
-                         "Papers that bridge autonomous-agent use with system-level coordination. Ecosystem-level dynamics or limited governance over agent teams."),
+                         "Papers that bridge autonomous-agent use with system-level coordination. Includes governance-layer interventions on ecosystem feedback loops, constitutional / RLAIF systems, and the model-collapse line of work — i.e., contributions that argue *toward* full Phase 4 mechanisms without demonstrating a domain having fully arrived there."),
     "phase-4":          ("Phase 4 — AI as Organization",
-                         "AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper notes that no domain has fully entered Phase 4 yet."),
-    "framework":        ("Framework & Cross-Cutting Work",
-                         "Position pieces, surveys, and theoretical frameworks that span multiple phases."),
+                         "AI coordinates systems of work across many agents; the human capability at risk is **systems thinking**. The dominant failure mode is governance opacity. The position paper states that no domain has fully entered Phase 4 yet — so this section is intentionally empty, and the **Emerging Phase 4** section above lists the papers that argue toward this mode."),
+    "framework":        ("Surveys & Position Papers",
+                         "Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for the area rather than grounded evidence for any one phase."),
 }
 
 
@@ -283,15 +283,21 @@ def render_readme(canonical: list[dict[str, Any]]) -> None:
     phase_sections: list[str] = []
     for tag in PHASE_ORDER:
         papers = by_phase[tag]
-        if not papers:
-            continue
         title, blurb = PHASE_HEADINGS[tag]
-        body = "\n".join(md_entry_for_readme(p) for p in papers)
-        phase_sections.append(
-            f"### {title}  <sub>({len(papers)} papers)</sub>\n\n"
-            f"_{blurb}_\n\n"
-            f"{body}"
-        )
+        if papers:
+            body = "\n".join(md_entry_for_readme(p) for p in papers)
+            phase_sections.append(
+                f"### {title}  <sub>({len(papers)} papers)</sub>\n\n"
+                f"_{blurb}_\n\n"
+                f"{body}"
+            )
+        elif tag == "phase-4":
+            # Intentionally rendered as an empty section so the
+            # "no domain has fully entered Phase 4" framing is visible.
+            phase_sections.append(
+                f"### {title}  <sub>(0 papers)</sub>\n\n"
+                f"_{blurb}_"
+            )
     paper_list_section = (
         "## Papers by Phase\n\n"
         "> Phases come from the four-phase framework "
@@ -305,14 +311,16 @@ def render_readme(canonical: list[dict[str, Any]]) -> None:
         + "\n\n".join(phase_sections)
     )
 
-    # Phase counts strip for the masthead.
+    # Phase counts strip for the masthead. Always show phase-4 even at 0
+    # so the "no domain has fully entered Phase 4" framing is visible.
     phase_parts: list[str] = []
     for tag in PHASE_ORDER:
         n = len(by_phase[tag])
-        if n == 0:
-            continue
         title, _ = PHASE_HEADINGS[tag]
-        phase_parts.append(f"**{title.split(' — ')[0]}** ({n})")
+        short = title.split(" — ")[0]
+        if n == 0 and tag != "phase-4":
+            continue
+        phase_parts.append(f"**{short}** ({n})")
     env_groups = " · ".join(phase_parts)
 
     # Secondary 5-category strip.

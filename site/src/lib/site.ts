@@ -103,18 +103,18 @@ export const PHASE_HEADINGS: Record<string, { title: string; role: string; capab
     title: 'Executor → Organization',
     role: 'Bridge phase',
     capability: 'Monitoring + early governance',
-    blurb: 'Papers that bridge autonomous-agent use with system-level coordination — ecosystem dynamics or limited governance over agent teams.',
+    blurb: 'Papers that bridge autonomous-agent use with system-level coordination — governance-layer interventions, constitutional / RLAIF systems, ecosystem-level feedback dynamics, and the model-collapse line. They argue toward Phase 4 mechanisms without demonstrating a domain having fully arrived there.',
   },
   'phase-4': {
     title: 'AI as Organization',
     role: 'Human: Low · AI: Extremely High',
     capability: 'Systems thinking',
-    blurb: 'AI coordinates systems of work across many agents. The dominant failure mode is governance opacity. The position paper notes no domain has fully entered Phase 4 yet.',
+    blurb: 'AI coordinates systems of work across many agents. The position paper states that no domain has fully entered Phase 4 yet — so this bucket is intentionally empty, and the Emerging Phase 4 papers above are the closest existing literature.',
   },
   'framework': {
-    title: 'Framework & Cross-Cutting',
-    role: 'Survey & position',
+    title: 'Surveys & Position Papers',
+    role: 'Scaffolding',
     capability: 'Spans phases',
-    blurb: 'Position pieces, surveys, and theoretical frameworks that span multiple phases.',
+    blurb: 'Surveys, position pieces, and theoretical frameworks that span multiple phases — scaffolding for the area rather than grounded evidence for any one phase.',
   },
 };

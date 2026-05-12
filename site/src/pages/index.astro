@@ -118,23 +118,37 @@ const jsonLd = [
         {PHASE_ORDER.map((tag) => {
           const h = PHASE_HEADINGS[tag];
           const n = phaseCount[tag] ?? 0;
-          if (n === 0) return null;
+          // Phase 4 stays visible at 0 so the "no domain has fully entered"
+          // framing is on the page. Other empty buckets are hidden.
+          if (n === 0 && tag !== 'phase-4') return null;
+          const isEmpty = n === 0;
+          const rowClass = isEmpty
+            ? 'grid grid-cols-[56px_1fr_auto] gap-x-5 items-baseline py-6 border-t border-paper-300 dark:border-ink-600 opacity-70'
+            : 'grid grid-cols-[56px_1fr_auto] gap-x-5 items-baseline py-6 border-t border-paper-300 dark:border-ink-600 group hover:bg-paper-200/40 dark:hover:bg-ink-700/20 transition-colors';
+          const inner = (
+            <>
+              <span class="meta-value tabular-nums text-accent dark:text-accent-dark font-medium">{PHASE_CODE[tag]}</span>
+              <div>
+                <div class={isEmpty
+                  ? 'kicker text-ink-500 dark:text-ink-300'
+                  : 'kicker text-ink-700 dark:text-ink-50 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors'}>
+                  {h.title}
+                </div>
+                <p class="mt-1 text-[12px] font-mono uppercase tracking-[0.06em] text-ink-400 dark:text-ink-300">
+                  {h.role} <span class="text-paper-400 dark:text-ink-600">·</span> Capability: <span class="text-ink-500 dark:text-ink-200 normal-case tracking-normal">{h.capability}</span>
+                </p>
+                <p class="mt-2 text-[13.5px] text-ink-500 dark:text-ink-300 max-w-[52ch] leading-relaxed">{h.blurb}</p>
+              </div>
+              <span class="meta-label tabular-nums">{isEmpty ? '—' : n}</span>
+            </>
+          );
           return (
             <li>
-              <a
-                href={`${base}/papers?phase=${encodeURIComponent(tag)}`}
-                class="grid grid-cols-[56px_1fr_auto] gap-x-5 items-baseline py-6 border-t border-paper-300 dark:border-ink-600 group hover:bg-paper-200/40 dark:hover:bg-ink-700/20 transition-colors"
-              >
-                <span class="meta-value tabular-nums text-accent dark:text-accent-dark font-medium">{PHASE_CODE[tag]}</span>
-                <div>
-                  <div class="kicker text-ink-700 dark:text-ink-50 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">{h.title}</div>
-                  <p class="mt-1 text-[12px] font-mono uppercase tracking-[0.06em] text-ink-400 dark:text-ink-300">
-                    {h.role} <span class="text-paper-400 dark:text-ink-600">·</span> Capability: <span class="text-ink-500 dark:text-ink-200 normal-case tracking-normal">{h.capability}</span>
-                  </p>
-                  <p class="mt-2 text-[13.5px] text-ink-500 dark:text-ink-300 max-w-[52ch] leading-relaxed">{h.blurb}</p>
-                </div>
-                <span class="meta-label tabular-nums">{n}</span>
-              </a>
+              {isEmpty ? (
+                <div class={rowClass}>{inner}</div>
+              ) : (
+                <a href={`${base}/papers?phase=${encodeURIComponent(tag)}`} class={rowClass}>{inner}</a>
+              )}
             </li>
           );
         })}
