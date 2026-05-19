@@ -11,7 +11,4 @@ site/dist/
 site/.astro/
 
 # Untracked from remote, kept locally
-.github/workflows/
 deep_research/
-readme_template/
-scripts/
