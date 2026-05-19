@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI Is Evolving. Are You?</title>
+<meta name="description" content="A plain-language companion to the position paper 'Human Evolution Should be Treated as a Goal in Human-AI Co-Evolution.' Four phases of how we use AI, what quietly breaks at each, and what to practice instead." />
+<style>
+  :root {
+    --ivory:#faf9f5;
+    --paper:#ffffff;
+    --slate:#141413;
+    --g700:#3d3d3a;
+    --g500:#87867f;
+    --g300:#d1cfc5;
+    --g200:#e6e3da;
+    --g100:#f0eee6;
+    --oat:#e7e3d4;
+    --clay:#d97757;
+    --clay-d:#b85c3e;
+    --clay-l:#f4dac9;
+    --olive:#788c5d;
+    --olive-l:#d9dfc9;
+    --teal:#187077;
+    --teal-l:#cfe1e3;
+    --teal-ll:#e8f0f1;
+    --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--g700);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background: var(--clay-l); color: var(--slate); }
+  a {
+    color: var(--clay);
+    text-decoration: underline;
+    text-decoration-color: var(--oat);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color .15s ease;
+  }
+  a:hover { text-decoration-color: var(--clay); }
+
+  /* ---------- layout ---------- */
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px 140px;
+  }
+  @media (min-width: 1180px) {
+    .wrap {
+      max-width: 1400px;
+      display: grid;
+      grid-template-columns: 196px minmax(0, 1fr);
+      column-gap: 56px;
+    }
+    .masthead, .footer, .toc-mobile { grid-column: 1 / -1; }
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    padding: 80px 0 48px;
+    border-bottom: 1.5px solid var(--g300);
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--g500);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--clay);
+  }
+
+  /* TWO-COLUMN HERO: roomier text on left, smaller figure on right */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 80px;
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .hero-text { min-width: 0; }
+  h1.title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(40px, 4.6vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--slate);
+    margin: 0 0 18px;
+    max-width: 18ch;
+  }
+  h1.title em { color: var(--clay); font-style: italic; }
+  .subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.32;
+    color: var(--g500);
+    margin: 0 0 32px;
+    max-width: 46ch;
+  }
+  .intro {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--g700);
+    margin: 0 0 16px;
+    max-width: 58ch;
+  }
+  .intro:last-of-type { margin-bottom: 24px; }
+  .byline {
+    margin-top: 28px;
+    color: var(--g500);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  .byline a { color: var(--g500); text-decoration-color: var(--g300); }
+
+  /* big hero figure (right column) */
+  .hero-figure {
+    background: var(--paper);
+    border: 1px solid var(--g200);
+    border-radius: 18px;
+    padding: 28px 30px 24px;
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    margin: 0;
+  }
+  .hero-figure::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 8% 12%, rgba(24,112,119,0.045), transparent 50%),
+      radial-gradient(ellipse at 92% 88%, rgba(217,119,87,0.05), transparent 55%);
+    pointer-events: none;
+  }
+  .figure-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .figure-head .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--g500);
+  }
+  .figure-head .fig-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--slate);
+    letter-spacing: -0.005em;
+  }
+  .figure-head .fig-title strong { color: var(--clay); font-weight: 500; font-style: italic; }
+  .hero-svg { width: 100%; height: auto; display: block; position: relative; }
+
+  /* ---------- side TOC ---------- */
+  nav.side-toc {
+    display: none;
+  }
+  @media (min-width: 1180px) {
+    nav.side-toc {
+      display: block;
+      position: sticky;
+      top: 28px;
+      align-self: start;
+      padding-top: 12px;
+      max-height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    nav.side-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav.side-toc li {
+      border-left: 2px solid var(--g300);
+      padding: 6px 0 6px 14px;
+      margin: 2px 0;
+    }
+    nav.side-toc a {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--g500);
+      text-decoration: none;
+    }
+    nav.side-toc a:hover { color: var(--slate); }
+    nav.side-toc li.active { border-left-color: var(--clay); }
+    nav.side-toc li.active a { color: var(--clay); }
+  }
+
+  /* mobile TOC chips */
+  .toc-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 36px;
+  }
+  .toc-mobile a {
+    border: 1px solid var(--g200);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--g700);
+    text-decoration: none;
+  }
+  .toc-mobile a:hover { border-color: var(--clay); color: var(--clay); }
+  @media (min-width: 1180px) { .toc-mobile { display: none; } }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 76px; scroll-margin-top: 28px; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+  .sec-head .idx {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--g500);
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  .sec-head h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.18;
+    color: var(--slate);
+    margin: 0;
+    letter-spacing: -0.012em;
+  }
+  .sec-intro {
+    margin-left: 50px;
+    max-width: 64ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--g700);
+  }
+  .sec-intro p { margin: 0 0 14px; }
+  .sec-intro p:last-child { margin-bottom: 0; }
+
+  /* ---------- phase cards ---------- */
+  .phases {
+    margin-left: 50px;
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  @media (min-width: 880px) {
+    .phases { grid-template-columns: 1fr 1fr; gap: 22px; }
+  }
+  .phase {
+    background: var(--paper);
+    border: 1px solid var(--g200);
+    border-radius: 14px;
+    padding: 24px 26px 22px;
+    position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .phase:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(20,20,19,0.06);
+  }
+  .phase .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--clay);
+    background: var(--clay-l);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .phase h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.22;
+    color: var(--slate);
+    margin: 0 0 4px;
+  }
+  .phase .label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--g500);
+    margin: 0 0 14px;
+  }
+  .phase dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    row-gap: 12px;
+    column-gap: 14px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .phase dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--g500);
+    padding-top: 4px;
+  }
+  .phase dd { margin: 0; color: var(--g700); }
+  .phase dd strong { color: var(--slate); }
+  .phase .stat {
+    background: var(--g100);
+    border-left: 3px solid var(--clay);
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-top: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--g700);
+  }
+  .phase .stat .num {
+    font-family: var(--serif);
+    font-weight: 500;
+    color: var(--clay-d);
+    font-size: 16px;
+  }
+
+  /* ---------- callouts ---------- */
+  .takeaway {
+    margin: 22px 0 0 50px;
+    background: var(--clay-l);
+    border-left: 3px solid var(--clay);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--slate);
+    max-width: 70ch;
+  }
+  .takeaway .lbl {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--clay-d);
+    margin-bottom: 4px;
+  }
+
+  .pull {
+    margin: 30px 0 30px 50px;
+    padding: 0 0 0 24px;
+    border-left: 3px solid var(--clay);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--slate);
+    max-width: 36ch;
+  }
+
+  /* ---------- heatmap ---------- */
+  .heatmap-wrap {
+    margin: 32px 0 0 50px;
+    background: var(--paper);
+    border: 1px solid var(--g200);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+  }
+  .heatmap-caption {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--g500);
+    margin-bottom: 18px;
+  }
+  .heatmap-caption .n {
+    color: var(--clay);
+    font-weight: 600;
+  }
+  .heatmap {
+    display: grid;
+    grid-template-columns: 200px repeat(6, 1fr);
+    gap: 4px;
+    align-items: stretch;
+  }
+  .hm-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--g700);
+    text-align: center;
+    padding: 8px 4px 10px;
+    font-weight: 500;
+  }
+  .hm-header .small {
+    display: block;
+    font-size: 9px;
+    color: var(--g500);
+    margin-top: 2px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .hm-row-label {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    color: var(--slate);
+    line-height: 1.25;
+    padding: 8px 14px 8px 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+  }
+  .hm-row-label .n {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--g500);
+    margin-top: 3px;
+    letter-spacing: .04em;
+  }
+  .hm-cell {
+    border: 0;
+    border-radius: 4px;
+    padding: 0;
+    height: 56px;
+    cursor: pointer;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--slate);
+    transition: transform .12s ease, box-shadow .12s ease, outline-color .12s ease;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    position: relative;
+  }
+  .hm-cell:hover {
+    transform: scale(1.05);
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(20,20,19,0.12);
+  }
+  .hm-cell.active {
+    outline-color: var(--slate);
+    z-index: 3;
+  }
+  .hm-cell.zero { color: var(--g300); cursor: default; }
+  .hm-cell.zero:hover { transform: none; box-shadow: none; }
+
+  .hm-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  .hm-legend .gradient {
+    flex: 1;
+    min-width: 200px;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #fff5f0 0%, #fcc5a8 35%, #e88a5f 65%, #b04020 100%);
+  }
+  .hm-legend .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--g500);
+  }
+
+  /* detail panel */
+  .hm-detail {
+    margin-top: 22px;
+    background: var(--g100);
+    border-radius: 10px;
+    padding: 18px 22px;
+    min-height: 80px;
+    transition: opacity .2s ease;
+  }
+  .hm-detail.empty {
+    color: var(--g500);
+    font-style: italic;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 110px;
+  }
+  .hm-detail-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .hm-detail-head .group {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--slate);
+  }
+  .hm-detail-head .phase-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--clay);
+    background: var(--clay-l);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .hm-detail-head .count {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--g500);
+    letter-spacing: .04em;
+  }
+  .hm-detail-summary {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--g700);
+    margin: 0 0 12px;
+    max-width: 70ch;
+  }
+  .hm-detail-summary strong { color: var(--slate); }
+  .hm-detail ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  @media (min-width: 700px) {
+    .hm-detail ul { grid-template-columns: 1fr 1fr; column-gap: 24px; }
+  }
+  @media (min-width: 1000px) {
+    .hm-detail ul { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .hm-detail li {
+    font-size: 13px;
+    color: var(--g700);
+    padding: 3px 0 3px 12px;
+    border-left: 2px solid var(--g200);
+    line-height: 1.4;
+  }
+  .hm-detail .none {
+    font-style: italic;
+    color: var(--g500);
+    font-size: 13px;
+  }
+
+  @media (max-width: 880px) {
+    .heatmap {
+      grid-template-columns: 110px repeat(6, 1fr);
+      gap: 3px;
+    }
+    .hm-row-label { font-size: 11px; padding-right: 8px; }
+    .hm-cell { height: 44px; font-size: 14px; }
+    .hm-header { font-size: 10px; }
+    .hm-header .small { font-size: 8px; }
+  }
+
+  /* ---------- habits ---------- */
+  .habits {
+    margin-left: 50px;
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 760px) {
+    .habits { grid-template-columns: repeat(3, 1fr); }
+  }
+  .habit {
+    background: var(--paper);
+    border: 1px solid var(--g200);
+    border-radius: 12px;
+    padding: 22px 22px 20px;
+  }
+  .habit .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--clay);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .habit h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--slate);
+    margin: 0 0 8px;
+  }
+  .habit p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--g700);
+    margin: 0;
+  }
+
+  /* ---------- text content ---------- */
+  .body-text {
+    margin-left: 50px;
+    max-width: 64ch;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--g700);
+  }
+  .body-text p { margin: 0 0 14px; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong { color: var(--slate); }
+  .body-text em { color: var(--g700); }
+
+  /* ---------- footer ---------- */
+  .footer {
+    margin-top: 96px;
+    padding-top: 36px;
+    border-top: 1.5px solid var(--g300);
+    color: var(--g500);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    line-height: 1.7;
+  }
+  .footer a { color: var(--g700); text-decoration-color: var(--g300); }
+  .footer .row { display: flex; flex-wrap: wrap; gap: 14px 32px; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 22px 100px; }
+    .masthead { padding: 56px 0 36px; }
+    .sec-head { gap: 12px; }
+    .sec-intro, .phases, .takeaway, .pull, .habits, .body-text, .heatmap-wrap { margin-left: 0; }
+    .phase dl { grid-template-columns: 84px 1fr; }
+    .hero-figure { padding: 20px 16px 16px; border-radius: 14px; }
+    .figure-head .fig-title { font-size: 15px; }
+    .figure-head .label { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============== MASTHEAD ============== -->
+  <header class="masthead">
+    <div class="eyebrow">
+      <a href="../" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px">&larr;&nbsp;Coevolution Index</a> &nbsp;·&nbsp; Position paper companion · 2026 · Plain-language read · 9 min
+    </div>
+
+    <div class="hero-grid">
+
+      <!-- LEFT: text column -->
+      <div class="hero-text">
+        <h1 class="title">AI Is Evolving. <em>Are You?</em></h1>
+        <p class="subtitle">The more capable AI gets, the more skill it takes to use it well. That skill is yours to keep evolving.</p>
+
+        <p class="intro">A friend uses ChatGPT to draft an email to her boss. She skims it, hits send, feels efficient. However, the reply comes back confused. She reads her own email, really reads it for the first time, and realizes she doesn't quite agree with what she sent under her own name.</p>
+
+        <p class="intro">This is the quiet pattern of modern AI use. We ask. We accept. We ship. Each moment feels like a small win. Stack them together, and the muscles we need to use well (judging, verifying, paying attention) get a little weaker each time we skip them.</p>
+
+        <div class="byline">
+          A plain-language companion to <a href="../">our position paper and its research index</a><br>
+          "Human Evolution Should Be Treated as a Goal in Human-AI Co-Evolution"
+        </div>
+      </div>
+
+      <!-- RIGHT: big Fig-3-style diagram -->
+      <figure class="hero-figure">
+        <div class="figure-head">
+          <span class="label">Our view · Figure 1</span>
+          <span class="fig-title">Human Evolution as a <strong>goal</strong> of Human-AI Co-Evolution</span>
+        </div>
+
+        <svg class="hero-svg" viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Co-evolution loop diagram. AI Improves box on the left with a monitor showing a rising chart. Human Evolution box on the right with a person, gear, and idea lamp. Top arc labeled Better Feedback, with chat bubbles and a thumbs-up, points from Human to AI. Middle arrow labeled New Skills Demanded, with a checklist document, points from AI to Human. A right-side loop labeled Better AI Utilization, with a hand interacting with a screen, returns to Human. Caption: Human evolution drives better AI usage and better AI.">
+
+          <defs>
+            <marker id="arrTeal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M0,0 L12,6 L0,12 z" fill="#187077"/>
+            </marker>
+            <marker id="arrClay" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M0,0 L12,6 L0,12 z" fill="#d97757"/>
+            </marker>
+          </defs>
+
+          <!-- Subtle decorative loop ring -->
+          <ellipse cx="500" cy="345" rx="430" ry="240" fill="none"
+                   stroke="#e6e3da" stroke-width="1" stroke-dasharray="2 8" opacity="0.6"/>
+
+          <!-- ============ TOP ARC: BETTER FEEDBACK (Human → AI) ============ -->
+          <text x="500" y="40" text-anchor="middle"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-size="26" font-weight="700" fill="#d97757"
+                letter-spacing="0.01em">
+            Better Feedback
+          </text>
+
+          <path d="M 770 240 C 700 70, 300 70, 230 240"
+                fill="none" stroke="#d97757" stroke-width="3"
+                stroke-linecap="round" marker-end="url(#arrClay)"/>
+
+          <circle cx="640" cy="115" r="2.8" fill="#d97757" opacity="0.55"/>
+          <circle cx="360" cy="115" r="2.8" fill="#d97757" opacity="0.55"/>
+
+          <!-- main chat bubble -->
+          <g transform="translate(434, 78)">
+            <rect x="0" y="0" width="90" height="52" rx="10" fill="#ffffff" stroke="#d97757" stroke-width="2"/>
+            <line x1="13" y1="17" x2="77" y2="17" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="27" x2="67" y2="27" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="37" x2="53" y2="37" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+            <path d="M 22 52 L 18 62 L 32 53 z" fill="#ffffff" stroke="#d97757" stroke-width="2" stroke-linejoin="round"/>
+          </g>
+
+          <!-- secondary thumbs-up bubble -->
+          <g transform="translate(534, 96)">
+            <circle cx="19" cy="19" r="19" fill="#d97757"/>
+            <path d="M 12 23 L 12 17 L 17 17 L 17 23 z" fill="#ffffff"/>
+            <path d="M 17 17 C 17 11, 21 9, 23 11 C 23 13, 22 14, 22 15 L 27 15 C 29 15, 29 18, 28 19 C 29 20, 28 22, 27 22 C 28 23, 27 25, 25 25 L 17 25 L 17 17 z"
+                  fill="#ffffff"/>
+          </g>
+
+          <!-- ============ AI BOX (LEFT) ============ -->
+          <g transform="translate(100, 250)">
+            <rect x="3" y="5" width="220" height="170" rx="18" fill="#187077" opacity="0.09"/>
+            <rect width="220" height="170" rx="18" fill="#ffffff" stroke="#187077" stroke-width="2.4"/>
+            <rect x="1.2" y="1.2" width="217.6" height="167.6" rx="17" fill="#e8f0f1" opacity="0.5"/>
+
+            <!-- monitor -->
+            <rect x="46" y="22" width="128" height="78" rx="6" fill="#187077"/>
+            <rect x="100" y="100" width="20" height="10" fill="#187077"/>
+            <rect x="76" y="110" width="68" height="8" rx="3" fill="#187077"/>
+
+            <!-- rising bars -->
+            <rect x="60"  y="78"  width="14" height="14" fill="#cfe1e3"/>
+            <rect x="78"  y="68"  width="14" height="24" fill="#cfe1e3"/>
+            <rect x="96"  y="56"  width="14" height="36" fill="#cfe1e3"/>
+            <rect x="114" y="44"  width="14" height="48" fill="#cfe1e3"/>
+            <rect x="132" y="34"  width="14" height="58" fill="#ffffff"/>
+
+            <!-- up trend line -->
+            <path d="M 60 80 L 80 68 L 100 56 L 124 42 L 150 30"
+                  fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 144 28 L 156 26 L 154 38 z" fill="#ffffff"/>
+
+            <!-- corner sparkle -->
+            <g transform="translate(36, 32)" stroke="#187077" stroke-width="1.8" stroke-linecap="round" fill="none">
+              <line x1="0" y1="-7" x2="0" y2="7"/>
+              <line x1="-7" y1="0" x2="7" y2="0"/>
+              <line x1="-5" y1="-5" x2="5" y2="5"/>
+              <line x1="-5" y1="5" x2="5" y2="-5"/>
+            </g>
+
+            <!-- label -->
+            <text x="110" y="148" text-anchor="middle"
+                  font-family="system-ui, -apple-system, sans-serif"
+                  font-size="24" font-weight="600" fill="#141413">
+              AI Improves
+            </text>
+          </g>
+
+          <!-- ============ HUMAN BOX (RIGHT) ============ -->
+          <g transform="translate(680, 250)">
+            <rect x="3" y="5" width="220" height="170" rx="18" fill="#d97757" opacity="0.09"/>
+            <rect width="220" height="170" rx="18" fill="#ffffff" stroke="#d97757" stroke-width="2.4"/>
+            <rect x="1.2" y="1.2" width="217.6" height="167.6" rx="17" fill="#f4dac9" opacity="0.35"/>
+
+            <!-- person -->
+            <circle cx="88" cy="50" r="16" fill="#d97757"/>
+            <path d="M 56 108 Q 56 72 88 72 Q 120 72 120 108 L 120 116 L 56 116 z" fill="#d97757"/>
+
+            <!-- gear -->
+            <g transform="translate(160, 38)">
+              <circle r="13" fill="#ffffff" stroke="#d97757" stroke-width="2.2"/>
+              <circle r="4" fill="#d97757"/>
+              <line x1="0" y1="-17" x2="0" y2="-13" stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="0" y1="13"  x2="0" y2="17"  stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="-17" y1="0" x2="-13" y2="0" stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="13" y1="0"  x2="17" y2="0"  stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="-12" y1="-12" x2="-9" y2="-9" stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="9" y1="9"   x2="12" y2="12"  stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="-12" y1="12" x2="-9" y2="9" stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="9" y1="-9"  x2="12" y2="-12" stroke="#d97757" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+
+            <!-- idea lamp (offset to upper-left so it never overlaps the head) -->
+            <g transform="translate(44, 46)">
+              <path d="M 0 -8 C -8 -8, -10 0, -6 6 L -5 12 L 5 12 L 6 6 C 10 0, 8 -8, 0 -8 z"
+                    fill="#fff6d6" stroke="#d97757" stroke-width="2" stroke-linejoin="round"/>
+              <rect x="-5" y="13" width="10" height="3" rx="1" fill="#d97757"/>
+              <rect x="-3" y="16" width="6" height="2" rx="1" fill="#d97757"/>
+              <line x1="0" y1="-13" x2="0" y2="-17" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+              <line x1="-12" y1="-5" x2="-16" y2="-7" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="-5"  x2="16" y2="-7"  stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+              <line x1="-9" y1="-12" x2="-12" y2="-15" stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+              <line x1="9" y1="-12"  x2="12" y2="-15"  stroke="#d97757" stroke-width="2" stroke-linecap="round"/>
+            </g>
+
+            <!-- motion sparkles -->
+            <g fill="#d97757" opacity="0.7">
+              <circle cx="46" cy="98" r="1.8"/>
+              <circle cx="155" cy="105" r="1.8"/>
+              <circle cx="190" cy="80" r="2"/>
+            </g>
+
+            <!-- label -->
+            <text x="110" y="148" text-anchor="middle"
+                  font-family="system-ui, -apple-system, sans-serif"
+                  font-size="24" font-weight="600" fill="#d97757">
+              Human Evolution
+            </text>
+          </g>
+
+          <!-- ============ MIDDLE: NEW SKILLS DEMANDED (AI → Human) ============ -->
+          <text x="500" y="392" text-anchor="middle"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-size="22" font-weight="600" fill="#187077"
+                letter-spacing="0.01em">
+            New Skills Demanded
+          </text>
+
+          <path d="M 330 434 L 460 434" fill="none" stroke="#187077" stroke-width="3" stroke-linecap="round"/>
+          <path d="M 542 434 L 668 434" fill="none" stroke="#187077" stroke-width="3" stroke-linecap="round" marker-end="url(#arrTeal)"/>
+
+          <circle cx="395" cy="434" r="2.8" fill="#187077" opacity="0.6"/>
+          <circle cx="605" cy="434" r="2.8" fill="#187077" opacity="0.6"/>
+
+          <!-- document with checklist -->
+          <g transform="translate(463, 406)">
+            <path d="M 56 0 L 70 14 L 56 14 z" fill="#cfe1e3"/>
+            <path d="M 0 0 L 56 0 L 70 14 L 70 60 L 0 60 z" fill="#ffffff" stroke="#187077" stroke-width="2"/>
+            <path d="M 56 0 L 56 14 L 70 14" fill="none" stroke="#187077" stroke-width="2" stroke-linejoin="round"/>
+
+            <circle cx="11" cy="22" r="4" fill="none" stroke="#187077" stroke-width="1.7"/>
+            <path d="M 8.5 22 L 10.5 24 L 13.5 20" fill="none" stroke="#187077" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="20" y1="22" x2="60" y2="22" stroke="#187077" stroke-width="1.8" stroke-linecap="round"/>
+
+            <circle cx="11" cy="35" r="4" fill="none" stroke="#187077" stroke-width="1.7"/>
+            <path d="M 8.5 35 L 10.5 37 L 13.5 33" fill="none" stroke="#187077" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="20" y1="35" x2="56" y2="35" stroke="#187077" stroke-width="1.8" stroke-linecap="round"/>
+
+            <circle cx="11" cy="48" r="4" fill="none" stroke="#187077" stroke-width="1.7"/>
+            <line x1="20" y1="48" x2="50" y2="48" stroke="#187077" stroke-width="1.8" stroke-linecap="round" opacity="0.55"/>
+          </g>
+
+          <!-- ============ RIGHT LOOP: BETTER AI UTILIZATION ============ -->
+          <path d="M 900 296 C 950 296, 950 404, 900 404"
+                fill="none" stroke="#d97757" stroke-width="3"
+                stroke-linecap="round" marker-end="url(#arrClay)"/>
+
+          <!-- rotated loop label, tucked inside the viewBox so it never clips -->
+          <text x="0" y="0" text-anchor="middle"
+                font-family="system-ui, -apple-system, sans-serif"
+                font-size="23" font-weight="700" fill="#d97757"
+                letter-spacing="0.02em"
+                transform="translate(966, 350) rotate(90)">
+            Better AI Utilization
+          </text>
+
+          <!-- ============ CAPTION ============ -->
+          <line x1="170" y1="614" x2="285" y2="614" stroke="#d1cfc5" stroke-width="1.2"/>
+          <line x1="715" y1="614" x2="830" y2="614" stroke="#d1cfc5" stroke-width="1.2"/>
+
+          <text x="500" y="624" text-anchor="middle"
+                font-family="ui-serif, Georgia, 'Times New Roman', serif"
+                font-style="italic" font-size="24" fill="#3d3d3a">
+            Human evolution drives <tspan fill="#d97757" font-weight="500">better AI usage</tspan>, and <tspan fill="#187077" font-weight="500">better AI</tspan>.
+          </text>
+        </svg>
+      </figure>
+
+    </div>
+  </header>
+
+  <!-- ============== SIDE TOC ============== -->
+  <nav class="side-toc" aria-label="Table of contents">
+    <ol>
+      <li><a href="#sec-loop">01 · The loop nobody talks about</a></li>
+      <li><a href="#sec-phases">02 · Four phases of using AI</a></li>
+      <li><a href="#sec-map">03 · Where are you in this framework?</a></li>
+      <li><a href="#sec-habits">04 · Three habits for this week</a></li>
+      <li><a href="#sec-future">05 · The future we're betting on</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============== CONTENT COLUMN ============== -->
+  <main>
+    <nav class="toc-mobile" aria-label="Table of contents">
+      <a href="#sec-loop">01 · Loop</a>
+      <a href="#sec-phases">02 · Four phases</a>
+      <a href="#sec-map">03 · Locate yourself</a>
+      <a href="#sec-habits">04 · Habits</a>
+      <a href="#sec-future">05 · Future</a>
+    </nav>
+
+    <!-- ============== SECTION 01 ============== -->
+    <section id="sec-loop">
+      <blockquote class="pull">Human evolution makes us use AI more effectively. Better usage feeds back into better AI.</blockquote>
+
+      <div class="sec-head">
+        <span class="idx">01</span>
+        <h2>The conversation we're not having</h2>
+      </div>
+      <div class="sec-intro">
+        <p>Most of what you hear about AI focuses on one side of the equation: making the AI smarter. <strong>We think this is the wrong place to put all the attention.</strong> Our position paper argues that <em>human evolution should be treated as a goal within human-AI co-evolution, not just a means to better AI</em>. As we delegate more work to AI, the skills we need to use increasingly capable AI well don't appear automatically. The same automation that makes us productive often removes our chances to practice them.</p>
+      </div>
+
+      <div class="body-text">
+        <p>When you silently accept a polished-but-wrong AI answer, that's not just a personal cost. The signal, <em>"human approved"</em>, flows into how the next generation of AI is trained. Models learn that confident, agreeable answers get rewarded. The result is sycophantic AI taught by humans who stopped checking.</p>
+        <p>The uncomfortable question: as AI gets dramatically more capable, can <em>we</em> use it well naturally? Or do we need something else?</p>
+      </div>
+    </section>
+
+    <!-- ============== SECTION 02 ============== -->
+    <section id="sec-phases">
+      <div class="sec-head">
+        <span class="idx">02</span>
+        <h2>Four phases of how humans use AI, and where things quietly break</h2>
+      </div>
+      <div class="sec-intro">
+        <p>We mapped four phases of how people actually use AI, based on how much work you hand over. AI brings a new empowerment and a new risk at each phase. Based on this insight, we suggest a skill for humans to practice and an interaction pattern for AI to adapt at that phase.</p>
+      </div>
+
+      <div class="phases">
+
+        <article class="phase">
+          <span class="tag">Phase 1</span>
+          <h3>Tool</h3>
+          <p class="label">You ask, it answers.</p>
+          <dl>
+            <dt>Scenario</dt>
+            <dd>You: "How do I use the TensorFlow package?" &rarr; AI: "To use it, first install it, then ..."</dd>
+            <dt>What breaks</dt>
+            <dd><strong>Your reasoning gets foggy.</strong> It's so easy to get an answer that you stop forming your own first. You drift toward passive acceptance.</dd>
+            <dt>Practice</dt>
+            <dd><strong>Critical thinking.</strong> Before asking, predict the answer yourself. Then compare. The AI becomes feedback on your reasoning instead of a substitute for it.</dd>
+            <dt>AI adapts</dt>
+            <dd>Show uncertainty. Surface the evidence. Ask what <em>you</em> already think before answering.</dd>
+          </dl>
+          <div class="stat"><span class="num">+18%</span> &nbsp;Doctors who trusted AI heavily accepted that many more <em>misdiagnoses</em> than doctors who trusted it less. <span style="color:var(--g500); font-size:11px; font-family:var(--mono); letter-spacing:.04em;">Srinivasan et al., 2025</span></div>
+        </article>
+
+        <article class="phase">
+          <span class="tag">Phase 2</span>
+          <h3>Assistant</h3>
+          <p class="label">You delegate, it produces.</p>
+          <dl>
+            <dt>Scenario</dt>
+            <dd>You: "Implement this function, get_ID." &rarr; Copilot: "def get_id(): ..."</dd>
+            <dt>What breaks</dt>
+            <dd><strong>Verification goes shallow.</strong> Polished output looks right. You check less and start trusting surface signals (length, formatting, confident tone) instead of substance.</dd>
+            <dt>Practice</dt>
+            <dd><strong>Evaluative expertise.</strong> Decide what tests an output must pass <em>before</em> you generate it. Ask for two or three versions, and if they disagree, look harder.</dd>
+            <dt>AI adapts</dt>
+            <dd>Stop hiding the work behind a polished draft. Show assumptions. Point at where it's most likely wrong. Surface disagreements across attempts.</dd>
+          </dl>
+          <div class="stat"><span class="num">40%</span> &nbsp;of code written with GitHub Copilot in one study had security vulnerabilities. Developers rated their Copilot work as <em>more</em> secure than their solo work. <span style="color:var(--g500); font-size:11px; font-family:var(--mono); letter-spacing:.04em;">Perry et al., 2023; Pearce et al., 2022</span></div>
+        </article>
+
+        <article class="phase">
+          <span class="tag">Phase 3</span>
+          <h3>Executor</h3>
+          <p class="label">You set a goal, it runs a whole workflow.</p>
+          <dl>
+            <dt>Scenario</dt>
+            <dd>You: "Make an intro page for our product." &rarr; Claude Code: "(writes, tests, and revises the page)"</dd>
+            <dt>What breaks</dt>
+            <dd><strong>Oversight breaks down.</strong> Watching is harder than driving. You miss the intermediate cues you'd catch while operating, and you're slower to intervene when things drift.</dd>
+            <dt>Practice</dt>
+            <dd><strong>Metacognitive monitoring.</strong> Decide in advance where you'll check in. Find the steps that matter most and concentrate attention there, instead of skimming thinly.</dd>
+            <dt>AI adapts</dt>
+            <dd>Don't run silently to the finish. Surface progress. Pause at checkpoints. Flag low confidence or risky actions.</dd>
+          </dl>
+          <div class="stat"><span class="num">97.4%</span> &nbsp;of users in one experiment with browser agents failed to interrupt the agent when it was about to accept a malicious privacy policy on their behalf. They were watching. They weren't really seeing. <span style="color:var(--g500); font-size:11px; font-family:var(--mono); letter-spacing:.04em;">Chen et al., 2025</span></div>
+        </article>
+
+        <article class="phase">
+          <span class="tag">Phase 4 (near future)</span>
+          <h3>Organization</h3>
+          <p class="label">You set direction; AI coordinates a system of agents.</p>
+          <dl>
+            <dt>Scenario</dt>
+            <dd>You: "Build this database system from scratch." &rarr; Meta-agent: "Agent 1: infra. Agent 2: interfaces. ..."</dd>
+            <dt>What breaks</dt>
+            <dd><strong>Governance becomes opaque.</strong> You see the final output, not how work was divided, rerouted, or redone. When something's off, you can't tell whether one component failed or the whole system was pointed at the wrong target.</dd>
+            <dt>Practice</dt>
+            <dd><strong>Systems thinking.</strong> Define rules before you deploy: what's forbidden, where the risk thresholds are, what gets escalated. Then audit <em>samples</em> of trajectories.</dd>
+            <dt>AI adapts</dt>
+            <dd>Summarize coordination decisions in plain language. Preserve audit trails linking actions to the original goal. Flag high-risk branches.</dd>
+          </dl>
+          <div class="stat">Phase 4 is forward-looking. The risk is structural: <em>outcome-only feedback</em> can't tell whether a failure came from one weak agent or from bad orchestration, so the coordination layer stays under-improved.</div>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- ============== SECTION 03 : INTERACTIVE HEATMAP ============== -->
+    <section id="sec-map">
+      <div class="sec-head">
+        <span class="idx">03</span>
+        <h2>Where are you in this framework?</h2>
+      </div>
+      <div class="sec-intro">
+        <p>Not every job sits in the same phase. A radiologist reading scans with AI lives in Phase 1 or 2. A software engineer running coding agents is deep in Phase 3. A researcher coordinating autonomous research systems brushes against Phase 4.</p>
+        <p>We classified <strong>341 white-collar occupations</strong> across these phases using two public adoption datasets and an index of underlying AI capability. <strong>Click any cell</strong> to see the occupations in that bucket.</p>
+      </div>
+
+      <div class="heatmap-wrap">
+        <div class="heatmap-caption">
+          AI integration phases across white-collar occupation groups · <span class="n">N = 341</span> · "<sup>E</sup>" marks <em>emerging</em> cohorts where frontier research is starting to push the work into the next phase
+        </div>
+
+        <div class="heatmap" id="heatmap" role="grid" aria-label="Phase distribution heatmap">
+          <!-- populated by JS -->
+        </div>
+
+        <div class="hm-legend">
+          <span class="lbl">Fewer occupations</span>
+          <div class="gradient" aria-hidden="true"></div>
+          <span class="lbl">More</span>
+        </div>
+
+        <div class="hm-detail empty" id="hm-detail" aria-live="polite">
+          Click any cell above to see the occupations in that bucket.
+        </div>
+      </div>
+
+      <div class="body-text" style="margin-top:32px;">
+        <p>A quick way to locate yourself if your exact role isn't listed: <em>what's the largest unit of work you currently hand to AI without checking each step?</em> A sentence? A document? A whole task? A project farmed out across agents? That's your phase, and it's the skill being practiced less every time you hand off another piece.</p>
+      </div>
+    </section>
+
+    <!-- ============== SECTION 04 : HABITS ============== -->
+    <section id="sec-habits">
+      <div class="sec-head">
+        <span class="idx">04</span>
+        <h2>Three habits to start practicing this week</h2>
+      </div>
+      <div class="sec-intro">
+        <p>Three habits, small enough to start today, that map onto the skills above:</p>
+      </div>
+
+      <div class="habits">
+        <article class="habit">
+          <div class="num">01</div>
+          <h4>Pre-think</h4>
+          <p>Before you ask, take thirty seconds to write down what you think the answer is. Then ask. Then compare. This one habit changes AI from "answer machine" to "thinking partner."</p>
+        </article>
+        <article class="habit">
+          <div class="num">02</div>
+          <h4>Critique</h4>
+          <p>Read every AI output once with the assumption that it's wrong somewhere. The flaw is usually in the spot that sounds the most confident.</p>
+        </article>
+        <article class="habit">
+          <div class="num">03</div>
+          <h4>Disconnect</h4>
+          <p>Once a week, do a task you usually delegate, entirely without AI. Not because AI is bad, but because this is how you check whether the underlying skill is still there.</p>
+        </article>
+      </div>
+
+      <div class="takeaway">
+        <span class="lbl">Why this works</span>
+        These aren't anti-AI practices. They're what makes pro-AI use sustainable. Each one carves out a small space where you do work AI would otherwise absorb, so the underlying capability stays alive when AI is wrong or unavailable.
+      </div>
+    </section>
+
+    <!-- ============== SECTION 05 : FUTURE ============== -->
+    <section id="sec-future">
+      <div class="sec-head">
+        <span class="idx">05</span>
+        <h2>The future we're betting on</h2>
+      </div>
+      <div class="body-text">
+        <p>There's a version of the future where AI gets dramatically more capable and humans dramatically less so, where we drift into a world we no longer understand and can't course-correct. It's the natural endpoint of a feedback loop we're already running.</p>
+        <p>There's another version. In it, AI runs fast and humans see far. AI handles volume and humans handle values. Both sides grow into roles that fit together: academia teaches phase-specific skills, industry builds review pipelines and audit trails into how agents are deployed, society sets rules so "human oversight" matches what humans can realistically see.</p>
+        <p>That future doesn't happen by accident. It depends on humans who keep growing, not just the tools they build. The good news: it starts the next time you open a chat window, when you pause for thirty seconds before you ask.</p>
+      </div>
+
+      <blockquote class="pull">AI runs fast. Humans see far. The future depends on both.</blockquote>
+    </section>
+
+  </main>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer">
+    <div class="row">
+      <span>Based on the position paper "Human Evolution Should be Treated as a Goal in Human-AI Co-Evolution."</span>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <span><a href="../">Browse the research index</a></span>
+      <span>·</span>
+      <span>Phase distribution: 341 occupations, derived from Anthropic Labor Report (2026), Microsoft AI Applicability (2025), and Eloundou et al. (2024)</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ============== Heatmap data ============== */
+const PHASES = [
+  { key: "p1",  label: "Phase 1",            sub: "stable" },
+  { key: "p2e", label: "Phase 2<sup>E</sup>", sub: "emerging" },
+  { key: "p2",  label: "Phase 2",            sub: "stable" },
+  { key: "p3e", label: "Phase 3<sup>E</sup>", sub: "emerging" },
+  { key: "p3",  label: "Phase 3",            sub: "stable" },
+  { key: "p4e", label: "Phase 4<sup>E</sup>", sub: "emerging" },
+];
+
+const PHASE_DESC = {
+  p1:  { name: "Phase 1 (Tool, stable)",          blurb: "AI is used as a <strong>tool</strong>: knowledge access, look-ups, explanations. Humans still execute the work." },
+  p2e: { name: "Phase 2 Emerging",                blurb: "Currently Phase 1, but research signals are pushing this work toward AI <strong>assisting in production</strong>." },
+  p2:  { name: "Phase 2 (Assistant, stable)",     blurb: "AI is used as an <strong>assistant</strong>: producing drafts, snippets, and partial artifacts that humans verify and ship." },
+  p3e: { name: "Phase 3 Emerging",                blurb: "Currently Phase 2, but frontier systems are pushing this work toward <strong>autonomous workflow execution</strong>." },
+  p3:  { name: "Phase 3 (Executor, stable)",      blurb: "AI <strong>runs whole workflows</strong> end-to-end. Humans set goals and supervise, not execute." },
+  p4e: { name: "Phase 4 Emerging",                blurb: "Currently Phase 3, but managed-agent architectures are pushing this work toward <strong>system-level coordination</strong>." },
+};
+
+const GROUPS = [
+  { key: "ch",  label: "Creative & Healthcare",     n: 73 },
+  { key: "bf",  label: "Business & Finance",        n: 62 },
+  { key: "ed",  label: "Education",                 n: 57 },
+  { key: "sls", label: "Science, Legal & Social",   n: 55 },
+  { key: "te",  label: "Tech & Engineering",        n: 54 },
+  { key: "oa",  label: "Office & Admin Support",    n: 40 },
+];
+
+const MATRIX = {
+  ch:  { p1: 28, p2e: 9, p2: 20, p3e: 8,  p3: 6,  p4e: 2  },
+  bf:  { p1: 1,  p2e: 7, p2: 21, p3e: 28, p3: 4,  p4e: 1  },
+  ed:  { p1: 3,  p2e: 0, p2: 16, p3e: 23, p3: 15, p4e: 0  },
+  sls: { p1: 1,  p2e: 7, p2: 19, p3e: 24, p3: 4,  p4e: 0  },
+  te:  { p1: 2,  p2e: 3, p2: 12, p3e: 20, p3: 4,  p4e: 13 },
+  oa:  { p1: 0,  p2e: 0, p2: 7,  p3e: 14, p3: 19, p4e: 0  },
+};
+
+const OCCUPATIONS = {
+  ch: {
+    p1: ["Acupuncturists","Anesthesiologists","Cardiovascular Technologists and Technicians","Chiropractors","Dental Hygienists","Dentists, General","Dermatologists","Diagnostic Medical Sonographers","Exercise Physiologists","Healthcare Practitioners and Technical Workers, All Other","Magnetic Resonance Imaging Technologists","Nuclear Medicine Technologists","Nurse Anesthetists","Occupational Therapists","Ophthalmologists, Except Pediatric","Optometrists","Oral and Maxillofacial Surgeons","Orthodontists","Orthopedic Surgeons, Except Pediatric","Orthotists and Prosthetists","Pediatric Surgeons","Physician Assistants","Podiatrists","Prosthodontists","Radiation Therapists","Radiologic Technologists and Technicians","Registered Nurses","Respiratory Therapists"],
+    p2e: ["Athletic Trainers","Audiologists","Healthcare Diagnosing or Treating Practitioners, All Other","Neurologists","Pediatricians, General","Physicians, All Other","Recreational Therapists","Speech-Language Pathologists","Therapists, All Other"],
+    p2: ["Art Directors","Choreographers","Dietetic Technicians","Dietitians and Nutritionists","Fashion Designers","Film and Video Editors","General Internal Medicine Physicians","Graphic Designers","Music Directors and Composers","Nurse Midwives","Nurse Practitioners","Obstetricians and Gynecologists","Pharmacists","Photographers","Physical Therapists","Physicians, Pathologists","Producers and Directors","Radiologists","Special Effects Artists and Animators","Veterinarians"],
+    p3e: ["Broadcast Announcers and Radio Disc Jockeys","Commercial and Industrial Designers","Editors","Family Medicine Physicians","Genetic Counselors","Interior Designers","Psychiatrists","Set and Exhibit Designers"],
+    p3: ["Court Reporters and Simultaneous Captioners","Health Information Technologists and Medical Registrars","Medical Records Specialists","News Analysts, Reporters, and Journalists","Public Relations Specialists","Writers and Authors"],
+    p4e: ["Interpreters and Translators","Technical Writers"]
+  },
+  bf: {
+    p1: ["Industrial Production Managers"],
+    p2e: ["Administrative Services Managers","Chief Executives","Compensation and Benefits Managers","Food Service Managers","Human Resources Managers","Labor Relations Specialists","Postmasters and Mail Superintendents"],
+    p2: ["Agents and Business Managers of Artists, Performers, and Athletes","Architectural and Engineering Managers","Business Operations Specialists, All Other","Construction Managers","Financial Managers","Financial Specialists, All Other","General and Operations Managers","Human Resources Specialists","Lodging Managers","Management Analysts","Managers, All Other","Marketing Managers","Medical and Health Services Managers","Meeting, Convention, and Event Planners","Personal Financial Advisors","Personal Service Managers, All Other","Property, Real Estate, and Community Association Managers","Public Relations Managers","Purchasing Managers","Social and Community Service Managers","Training and Development Specialists"],
+    p3e: ["Advertising and Promotions Managers","Budget Analysts","Claims Adjusters, Examiners, and Investigators","Compensation, Benefits, and Job Analysis Specialists","Compliance Officers","Computer and Information Systems Managers","Cost Estimators","Credit Analysts","Credit Counselors","Education Administrators, Kindergarten through Secondary","Education Administrators, Postsecondary","Education and Childcare Administrators, Preschool and Daycare","Emergency Management Directors","Facilities Managers","Financial Examiners","Fundraisers","Funeral Home Managers","Gambling Managers","Insurance Appraisers, Auto Damage","Insurance Underwriters","Legislators","Loan Officers","Logisticians","Natural Sciences Managers","Sales Managers","Tax Examiners and Collectors, and Revenue Agents","Tax Preparers","Transportation, Storage, and Distribution Managers"],
+    p3: ["Accountants and Auditors","Financial Risk Specialists","Financial and Investment Analysts","Training and Development Managers"],
+    p4e: ["Market Research Analysts and Marketing Specialists"]
+  },
+  ed: {
+    p1: ["Kindergarten Teachers, Except Special Education","Preschool Teachers, Except Special Education","Special Education Teachers, Preschool"],
+    p2e: [],
+    p2: ["Career/Technical Education Teachers, Middle School","Career/Technical Education Teachers, Postsecondary","Career/Technical Education Teachers, Secondary School","Chemistry Teachers, Postsecondary","Elementary School Teachers, Except Special Education","Instructional Coordinators","Librarians and Media Collections Specialists","Middle School Teachers, Except Special and Career/Technical Education","Museum Technicians and Conservators","Nursing Instructors and Teachers, Postsecondary","Secondary School Teachers, Except Special and Career/Technical Education","Self-Enrichment Teachers","Special Education Teachers, All Other","Special Education Teachers, Middle School","Special Education Teachers, Secondary School","Teaching Assistants, Postsecondary"],
+    p3e: ["Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors","Agricultural Sciences Teachers, Postsecondary","Anthropology and Archeology Teachers, Postsecondary","Architecture Teachers, Postsecondary","Archivists","Area, Ethnic, and Cultural Studies Teachers, Postsecondary","Atmospheric, Earth, Marine, and Space Sciences Teachers, Postsecondary","Criminal Justice and Law Enforcement Teachers, Postsecondary","Economics Teachers, Postsecondary","Environmental Science Teachers, Postsecondary","Family and Consumer Sciences Teachers, Postsecondary","Farm and Home Management Educators","Forestry and Conservation Science Teachers, Postsecondary","Geography Teachers, Postsecondary","History Teachers, Postsecondary","Law Teachers, Postsecondary","Library Science Teachers, Postsecondary","Library Technicians","Physics Teachers, Postsecondary","Political Science Teachers, Postsecondary","Recreation and Fitness Studies Teachers, Postsecondary","Social Work Teachers, Postsecondary","Sociology Teachers, Postsecondary"],
+    p3: ["Art, Drama, and Music Teachers, Postsecondary","Biological Science Teachers, Postsecondary","Business Teachers, Postsecondary","Communications Teachers, Postsecondary","Computer Science Teachers, Postsecondary","Curators","Education Teachers, Postsecondary","Engineering Teachers, Postsecondary","English Language and Literature Teachers, Postsecondary","Foreign Language and Literature Teachers, Postsecondary","Health Specialties Teachers, Postsecondary","Mathematical Science Teachers, Postsecondary","Philosophy and Religion Teachers, Postsecondary","Psychology Teachers, Postsecondary","Tutors"],
+    p4e: []
+  },
+  sls: {
+    p1: ["Forensic Science Technicians"],
+    p2e: ["Conservation Scientists","Epidemiologists","Foresters","Mental Health and Substance Abuse Social Workers","Occupational Health and Safety Specialists","Occupational Health and Safety Technicians","Title Examiners, Abstractors, and Searchers"],
+    p2: ["Administrative Law Judges, Adjudicators, and Hearing Officers","Arbitrators, Mediators, and Conciliators","Astronomers","Biological Scientists, All Other","Chemists","Child, Family, and School Social Workers","Clergy","Directors, Religious Activities and Education","Educational, Guidance, and Career Counselors and Advisors","Geographers","Healthcare Social Workers","Judicial Law Clerks","Lawyers","Marriage and Family Therapists","Materials Scientists","Microbiologists","Paralegals and Legal Assistants","Psychologists, All Other","Sociologists"],
+    p3e: ["Animal Scientists","Anthropologists and Archeologists","Atmospheric and Space Scientists","Biochemists and Biophysicists","Clinical and Counseling Psychologists","Economists","Environmental Scientists and Specialists, Including Health","Food Scientists and Technologists","Geoscientists, Except Hydrologists and Geographers","Health Education Specialists","Historians","Hydrologists","Industrial-Organizational Psychologists","Life, Physical, and Social Science Technicians, All Other","Medical Scientists, Except Epidemiologists","Physical Scientists, All Other","Physicists","Probation Officers and Correctional Treatment Specialists","Rehabilitation Counselors","School Psychologists","Social Scientists and Related Workers, All Other","Soil and Plant Scientists","Urban and Regional Planners","Zoologists and Wildlife Biologists"],
+    p3: ["Judges, Magistrate Judges, and Magistrates","Political Scientists","Social Science Research Assistants","Survey Researchers"],
+    p4e: []
+  },
+  te: {
+    p1: ["Agricultural Engineers","Materials Engineers"],
+    p2e: ["Nuclear Engineers","Petroleum Engineers","Surveyors"],
+    p2: ["Aerospace Engineering and Operations Technologists and Technicians","Chemical Engineers","Computer Hardware Engineers","Computer Network Architects","Electrical Engineers","Electrical and Electronic Engineering Technologists and Technicians","Electro-Mechanical and Mechatronics Technologists and Technicians","Electronics Engineers, Except Computer","Engineering Technologists and Technicians, Except Drafters, All Other","Environmental Engineering Technologists and Technicians","Mechanical Engineering Technologists and Technicians","Operations Research Analysts"],
+    p3e: ["Actuaries","Aerospace Engineers","Architects, Except Landscape and Naval","Architectural and Civil Drafters","Bioengineers and Biomedical Engineers","Cartographers and Photogrammetrists","Civil Engineering Technologists and Technicians","Civil Engineers","Electrical and Electronics Drafters","Engineers, All Other","Environmental Engineers","Health and Safety Engineers, Except Mining Safety Engineers and Inspectors","Industrial Engineering Technologists and Technicians","Industrial Engineers","Landscape Architects","Marine Engineers and Naval Architects","Mechanical Drafters","Mechanical Engineers","Mining and Geological Engineers, Including Mining Safety Engineers","Statisticians"],
+    p3: ["Computer Occupations, All Other","Database Architects","Mathematical Science Occupations, All Other","Mathematicians"],
+    p4e: ["Computer Network Support Specialists","Computer Programmers","Computer Systems Analysts","Computer User Support Specialists","Computer and Information Research Scientists","Data Scientists","Database Administrators","Information Security Analysts","Network and Computer Systems Administrators","Software Developers","Software Quality Assurance Analysts and Testers","Web Developers","Web and Digital Interface Designers"]
+  },
+  oa: {
+    p1: [],
+    p2e: [],
+    p2: ["Billing and Posting Clerks","File Clerks","First-Line Supervisors of Office and Administrative Support Workers","Library Assistants, Clerical","Loan Interviewers and Clerks","Postal Service Clerks","Tellers"],
+    p3e: ["Cargo and Freight Agents","Court, Municipal, and License Clerks","Credit Authorizers, Checkers, and Clerks","Dispatchers, Except Police, Fire, and Ambulance","Eligibility Interviewers, Government Programs","Executive Secretaries and Executive Administrative Assistants","Insurance Claims and Policy Processing Clerks","Legal Secretaries and Administrative Assistants","New Accounts Clerks","Order Clerks","Payroll and Timekeeping Clerks","Production, Planning, and Expediting Clerks","Public Safety Telecommunicators","Telephone Operators"],
+    p3: ["Bill and Account Collectors","Bookkeeping, Accounting, and Auditing Clerks","Brokerage Clerks","Correspondence Clerks","Customer Service Representatives","Data Entry Keyers","Desktop Publishers","Human Resources Assistants, Except Payroll and Timekeeping","Interviewers, Except Eligibility and Loan","Medical Secretaries and Administrative Assistants","Office Clerks, General","Procurement Clerks","Proofreaders and Copy Markers","Receptionists and Information Clerks","Reservation and Transportation Ticket Agents and Travel Clerks","Secretaries and Administrative Assistants, Except Legal, Medical, and Executive","Statistical Assistants","Switchboard Operators, Including Answering Service","Word Processors and Typists"]
+  }
+};
+
+/* ============== Heatmap rendering ============== */
+(function renderHeatmap(){
+  const root = document.getElementById("heatmap");
+
+  let max = 0;
+  for (const g of GROUPS) for (const p of PHASES) max = Math.max(max, MATRIX[g.key][p.key]);
+
+  function colorFor(v){
+    if (v === 0) return "#f6f4ec";
+    const t = Math.pow(v / max, 0.75);
+    const c1 = [255,245,240];
+    const c2 = [176,64,32];
+    const r = Math.round(c1[0] + (c2[0]-c1[0]) * t);
+    const g = Math.round(c1[1] + (c2[1]-c1[1]) * t);
+    const b = Math.round(c1[2] + (c2[2]-c1[2]) * t);
+    return `rgb(${r},${g},${b})`;
+  }
+  function textColorFor(v){
+    return (v / max) > 0.55 ? "#fff" : "#141413";
+  }
+
+  const corner = document.createElement("div");
+  corner.className = "hm-header";
+  corner.innerHTML = "<span class='small' style='color:var(--g500)'>group / phase</span>";
+  root.appendChild(corner);
+
+  for (const p of PHASES){
+    const h = document.createElement("div");
+    h.className = "hm-header";
+    h.innerHTML = `${p.label}<span class="small">${p.sub}</span>`;
+    root.appendChild(h);
+  }
+
+  for (const g of GROUPS){
+    const lbl = document.createElement("div");
+    lbl.className = "hm-row-label";
+    lbl.innerHTML = `<span>${g.label}</span><span class="n">N = ${g.n}</span>`;
+    root.appendChild(lbl);
+
+    for (const p of PHASES){
+      const v = MATRIX[g.key][p.key];
+      const cell = document.createElement("button");
+      cell.className = "hm-cell" + (v === 0 ? " zero" : "");
+      cell.style.background = colorFor(v);
+      cell.style.color = textColorFor(v);
+      cell.textContent = v;
+      cell.setAttribute("data-group", g.key);
+      cell.setAttribute("data-phase", p.key);
+      cell.setAttribute("aria-label",
+        `${g.label}, ${p.label.replace(/<[^>]+>/g,'')} ${p.sub}: ${v} occupations`);
+      if (v === 0) cell.setAttribute("aria-disabled", "true");
+      cell.addEventListener("click", onCellClick);
+      root.appendChild(cell);
+    }
+  }
+})();
+
+function onCellClick(ev){
+  const btn = ev.currentTarget;
+  const gKey = btn.getAttribute("data-group");
+  const pKey = btn.getAttribute("data-phase");
+
+  document.querySelectorAll(".hm-cell.active").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+
+  const group = GROUPS.find(x => x.key === gKey);
+  const phase = PHASES.find(x => x.key === pKey);
+  const list = OCCUPATIONS[gKey][pKey] || [];
+  const desc = PHASE_DESC[pKey];
+
+  const panel = document.getElementById("hm-detail");
+  panel.classList.remove("empty");
+
+  let html = `
+    <div class="hm-detail-head">
+      <span class="group">${group.label}</span>
+      <span class="phase-tag">${desc.name}</span>
+      <span class="count">${list.length} occupation${list.length === 1 ? "" : "s"}</span>
+    </div>
+    <p class="hm-detail-summary">${desc.blurb}</p>
+  `;
+
+  if (list.length === 0){
+    html += `<div class="none">No occupations from this group currently sit in this bucket.</div>`;
+  } else {
+    html += "<ul>" + list.map(o => `<li>${o}</li>`).join("") + "</ul>";
+  }
+
+  panel.innerHTML = html;
+}
+
+(function tocActive(){
+  const links = document.querySelectorAll("nav.side-toc a");
+  if (!links.length) return;
+  const map = new Map();
+  links.forEach(a => {
+    const id = a.getAttribute("href").slice(1);
+    const el = document.getElementById(id);
+    if (el) map.set(el, a.parentElement);
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        document.querySelectorAll("nav.side-toc li.active").forEach(li => li.classList.remove("active"));
+        const li = map.get(e.target);
+        if (li) li.classList.add("active");
+      }
+    });
+  }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+  map.forEach((_, el) => io.observe(el));
+})();
+</script>
+</body>
+</html>
