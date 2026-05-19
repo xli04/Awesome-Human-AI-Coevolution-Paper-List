@@ -423,7 +423,8 @@
     font-size: 22px;
     line-height: 1.35;
     color: var(--slate);
-    max-width: 36ch;
+    max-width: 52ch;
+    text-wrap: balance;
   }
 
   /* ---------- heatmap ---------- */
@@ -984,7 +985,7 @@
     <section id="sec-phases">
       <div class="sec-head">
         <span class="idx">02</span>
-        <h2>Four phases of how humans use AI, and where things quietly break</h2>
+        <h2>Four phases of how humans use AI, and what we should do to use it well</h2>
       </div>
       <div class="sec-intro">
         <p>We mapped four phases of how people actually use AI, based on how much work you hand over. AI brings a new empowerment and a new risk at each phase. Based on this insight, we suggest a skill for humans to practice and an interaction pattern for AI to adapt at that phase.</p>
@@ -995,11 +996,10 @@
         <article class="phase">
           <span class="tag">Phase 1</span>
           <h3>Tool</h3>
-          <p class="label">You ask, it answers.</p>
           <dl>
             <dt>Scenario</dt>
             <dd>You: "How do I use the TensorFlow package?" &rarr; AI: "To use it, first install it, then ..."</dd>
-            <dt>What breaks</dt>
+            <dt>Why it matters</dt>
             <dd><strong>Your reasoning gets foggy.</strong> It's so easy to get an answer that you stop forming your own first. You drift toward passive acceptance.</dd>
             <dt>Practice</dt>
             <dd><strong>Critical thinking.</strong> Before asking, predict the answer yourself. Then compare. The AI becomes feedback on your reasoning instead of a substitute for it.</dd>
@@ -1012,14 +1012,13 @@
         <article class="phase">
           <span class="tag">Phase 2</span>
           <h3>Assistant</h3>
-          <p class="label">You delegate, it produces.</p>
           <dl>
             <dt>Scenario</dt>
             <dd>You: "Implement this function, get_ID." &rarr; Copilot: "def get_id(): ..."</dd>
-            <dt>What breaks</dt>
+            <dt>Why it matters</dt>
             <dd><strong>Verification goes shallow.</strong> Polished output looks right. You check less and start trusting surface signals (length, formatting, confident tone) instead of substance.</dd>
             <dt>Practice</dt>
-            <dd><strong>Evaluative expertise.</strong> Decide what tests an output must pass <em>before</em> you generate it. Ask for two or three versions, and if they disagree, look harder.</dd>
+            <dd><strong>Evaluative expertise.</strong> Decide what tests an output must pass <em>before</em> you use what the AI generates. Ask for two or three versions, and if they disagree, look harder.</dd>
             <dt>AI adapts</dt>
             <dd>Stop hiding the work behind a polished draft. Show assumptions. Point at where it's most likely wrong. Surface disagreements across attempts.</dd>
           </dl>
@@ -1029,12 +1028,11 @@
         <article class="phase">
           <span class="tag">Phase 3</span>
           <h3>Executor</h3>
-          <p class="label">You set a goal, it runs a whole workflow.</p>
           <dl>
             <dt>Scenario</dt>
             <dd>You: "Make an intro page for our product." &rarr; Claude Code: "(writes, tests, and revises the page)"</dd>
-            <dt>What breaks</dt>
-            <dd><strong>Oversight breaks down.</strong> Watching is harder than driving. You miss the intermediate cues you'd catch while operating, and you're slower to intervene when things drift.</dd>
+            <dt>Why it matters</dt>
+            <dd><strong>Oversight breaks down.</strong> Watching is harder than driving. You miss the intermediate cues you would catch while operating, and flawed output slips through to deployment.</dd>
             <dt>Practice</dt>
             <dd><strong>Metacognitive monitoring.</strong> Decide in advance where you'll check in. Find the steps that matter most and concentrate attention there, instead of skimming thinly.</dd>
             <dt>AI adapts</dt>
@@ -1046,12 +1044,11 @@
         <article class="phase">
           <span class="tag">Phase 4 (near future)</span>
           <h3>Organization</h3>
-          <p class="label">You set direction; AI coordinates a system of agents.</p>
           <dl>
             <dt>Scenario</dt>
             <dd>You: "Build this database system from scratch." &rarr; Meta-agent: "Agent 1: infra. Agent 2: interfaces. ..."</dd>
-            <dt>What breaks</dt>
-            <dd><strong>Governance becomes opaque.</strong> You see the final output, not how work was divided, rerouted, or redone. When something's off, you can't tell whether one component failed or the whole system was pointed at the wrong target.</dd>
+            <dt>Why it matters</dt>
+            <dd><strong>Governance becomes opaque.</strong> You see the final output, not how the work was divided or rerouted. When something's off, you can't tell whether the result still aligns with your original intent.</dd>
             <dt>Practice</dt>
             <dd><strong>Systems thinking.</strong> Define rules before you deploy: what's forbidden, where the risk thresholds are, what gets escalated. Then audit <em>samples</em> of trajectories.</dd>
             <dt>AI adapts</dt>
@@ -1070,13 +1067,12 @@
         <h2>Where are you in this framework?</h2>
       </div>
       <div class="sec-intro">
-        <p>Not every job sits in the same phase. A radiologist reading scans with AI lives in Phase 1 or 2. A software engineer running coding agents is deep in Phase 3. A researcher coordinating autonomous research systems brushes against Phase 4.</p>
-        <p>We classified <strong>341 white-collar occupations</strong> across these phases using two public adoption datasets and an index of underlying AI capability. <strong>Click any cell</strong> to see the occupations in that bucket.</p>
+        <p>Not every job sits in the same phase. We classified <strong>341 white-collar occupations</strong> using two public adoption datasets and an index of underlying AI capability. <strong>Click any cell</strong> to see the occupations in that bucket.</p>
       </div>
 
       <div class="heatmap-wrap">
         <div class="heatmap-caption">
-          AI integration phases across white-collar occupation groups · <span class="n">N = 341</span> · "<sup>E</sup>" marks <em>emerging</em> cohorts where frontier research is starting to push the work into the next phase
+          AI integration phases across white-collar occupation groups · <span class="n">N = 341</span> · "<sup>E</sup>" marks <em>emerging</em> cohorts where frontier research is starting to push the work into the next phase. Software developers, for example, sit in the emerging Phase 4.
         </div>
 
         <div class="heatmap" id="heatmap" role="grid" aria-label="Phase distribution heatmap">
@@ -1106,19 +1102,19 @@
         <h2>Three habits to start practicing this week</h2>
       </div>
       <div class="sec-intro">
-        <p>Three habits, small enough to start today, that map onto the skills above:</p>
+        <p>Three habits, small enough to start today. Each carves out a small space where you do the work AI would otherwise absorb, so you keep the skills that make using AI well sustainable:</p>
       </div>
 
       <div class="habits">
         <article class="habit">
           <div class="num">01</div>
           <h4>Pre-think</h4>
-          <p>Before you ask, take thirty seconds to write down what you think the answer is. Then ask. Then compare. This one habit changes AI from "answer machine" to "thinking partner."</p>
+          <p>Before you ask, take ten seconds to note your initial guess at the answer. Then ask. Then compare. This one habit changes AI from "answer machine" to "thinking partner."</p>
         </article>
         <article class="habit">
           <div class="num">02</div>
-          <h4>Critique</h4>
-          <p>Read every AI output once with the assumption that it's wrong somewhere. The flaw is usually in the spot that sounds the most confident.</p>
+          <h4>Prepare</h4>
+          <p>Write test cases or success rubrics before you integrate AI-generated results into real work. This keeps quality high while you still gain the speed.</p>
         </article>
         <article class="habit">
           <div class="num">03</div>
@@ -1127,10 +1123,6 @@
         </article>
       </div>
 
-      <div class="takeaway">
-        <span class="lbl">Why this works</span>
-        These aren't anti-AI practices. They're what makes pro-AI use sustainable. Each one carves out a small space where you do work AI would otherwise absorb, so the underlying capability stays alive when AI is wrong or unavailable.
-      </div>
     </section>
 
     <!-- ============== SECTION 05 : FUTURE ============== -->

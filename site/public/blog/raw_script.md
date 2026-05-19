@@ -85,7 +85,7 @@ The uncomfortable question: as AI gets dramatically more capable, can *we* use i
 ## SECTION 02 — Four phases of using AI
 
 [[s02-heading]]
-Four phases of how humans use AI, and where things quietly break
+Four phases of how humans use AI, and what we should do to use it well
 
 [[s02-intro]]
 We mapped four phases of how people actually use AI, based on how much work you hand over. AI brings a new empowerment and a new risk at each phase. Based on this insight, we suggest a skill for humans to practice and an interaction pattern for AI to adapt at that phase.
@@ -94,9 +94,8 @@ We mapped four phases of how people actually use AI, based on how much work you 
 
 [[p1-tag]] Phase 1
 [[p1-name]] Tool
-[[p1-label]] You ask, it answers.
 [[p1-scenario]] You: "How do I use the TensorFlow package?" → AI: "To use it, first install it, then ..."
-[[p1-breaks]] **Your reasoning gets foggy.** It's so easy to get an answer that you stop forming your own first. You drift toward passive acceptance.
+[[p1-whyevolution]] **Your reasoning gets foggy.** It's so easy to get an answer that you stop forming your own first. You drift toward passive acceptance.
 [[p1-practice]] **Critical thinking.** Before asking, predict the answer yourself. Then compare. The AI becomes feedback on your reasoning instead of a substitute for it.
 [[p1-aiadapation]] Show uncertainty. Surface the evidence. Ask what *you* already think before answering.
 [[p1-stat]] **+18%** — Doctors who trusted AI heavily accepted that many more *misdiagnoses* than doctors who trusted it less. *(cite: Srinivasan et al., 2025)*
@@ -105,10 +104,9 @@ We mapped four phases of how people actually use AI, based on how much work you 
 
 [[p2-tag]] Phase 2
 [[p2-name]] Assistant
-[[p2-label]] You delegate, it produces.
 [[p2-scenario]] You: "Implement this function, get_ID." → Copilot: "def get_id(): ..."
-[[p2-breaks]] **Verification goes shallow.** Polished output looks right. You check less and start trusting surface signals (length, formatting, confident tone) instead of substance.
-[[p2-practice]] **Evaluative expertise.** Decide what tests an output must pass *before* you generate it. Ask for two or three versions, and if they disagree, look harder.
+[[p2-whyevolution]] **Verification goes shallow.** Polished output looks right. You check less and start trusting surface signals (length, formatting, confident tone) instead of substance.
+[[p2-practice]] **Evaluative expertise.** Decide what tests an output must pass *before* you use what the AI generates. Ask for two or three versions, and if they disagree, look harder.
 [[p2-aiadapation]] Stop hiding the work behind a polished draft. Show assumptions. Point at where it's most likely wrong. Surface disagreements across attempts.
 [[p2-stat]] **40%** — of code written with GitHub Copilot in one study had security vulnerabilities. Developers rated their Copilot work as *more* secure than their solo work. *(cite: Perry et al., 2023; Pearce et al., 2022)*
 
@@ -116,9 +114,8 @@ We mapped four phases of how people actually use AI, based on how much work you 
 
 [[p3-tag]] Phase 3
 [[p3-name]] Executor
-[[p3-label]] You set a goal, it runs a whole workflow.
 [[p3-scenario]] You: "Make an intro page for our product." → Claude Code: "(writes, tests, and revises the page)"
-[[p3-breaks]] **Oversight breaks down.** Watching is harder than driving. You miss the intermediate cues you'd catch while operating, and you're slower to intervene when things drift.
+[[p3-whyevolution]] **Oversight breaks down.** Watching is harder than driving. You miss the intermediate cues you would catch while operating, and flawed output slips through to deployment.
 [[p3-practice]] **Metacognitive monitoring.** Decide in advance where you'll check in. Find the steps that matter most and concentrate attention there, instead of skimming thinly.
 [[p3-aiadapation]] Don't run silently to the finish. Surface progress. Pause at checkpoints. Flag low confidence or risky actions.
 [[p3-stat]] **97.4%** — of users in one experiment with browser agents failed to interrupt the agent when it was about to accept a malicious privacy policy on their behalf. They were watching. They weren't really seeing. *(cite: Chen et al., 2025)*
@@ -127,11 +124,10 @@ We mapped four phases of how people actually use AI, based on how much work you 
 
 [[p4-tag]] Phase 4 (near future)
 [[p4-name]] Organization
-[[p4-label]] You set direction; AI coordinates a system of agents.
 [[p4-scenario]] You: "Build this database system from scratch." → Meta-agent: "Agent 1: infra. Agent 2: interfaces. ..."
-[[p4-breaks]] **Governance becomes opaque.** You see the final output, not how work was divided, rerouted, or redone. When something's off, you can't tell whether one component failed or the whole system was pointed at the wrong target.
-[[p4-practice]] **Systems thinking.** Define rules before you deploy: what's forbidden, where the risk thresholds are, what gets escalated. Then audit *samples* of trajectories.
-[[p4-aiadapation]] Summarize coordination decisions in plain language. Preserve audit trails linking actions to the original goal. Flag high-risk branches.
+[[p4-whyevolution]] **Governance becomes opaque.** You see the final output, not how the work was divided or rerouted. When something's off, you can't tell whether the result still aligns with your original intent.
+[[p4-practice]] **Systems thinking.** Define rubrics before you deploy: what's forbidden, where the risk thresholds are, what gets escalated. Then audit *samples* of trajectories.
+[[p4-aiadapation]] Actively summarize coordination decisions in plain language. Preserve audit trails linking actions to the original goal. Flag high-risk branches.
 [[p4-stat]] Phase 4 is forward-looking. The risk is structural: *outcome-only feedback* can't tell whether a failure came from one weak agent or from bad orchestration, so the coordination layer stays under-improved.
 
 <!-- [[s02-takeaway]]
@@ -145,13 +141,10 @@ We mapped four phases of how people actually use AI, based on how much work you 
 Where are you in this framework?
 
 [[s03-intro-1]]
-Not every job sits in the same phase. A radiologist reading scans with AI lives in Phase 1 or 2. A software engineer running coding agents is deep in Phase 3. A researcher coordinating autonomous research systems brushes against Phase 4.
-
-[[s03-intro-2]]
-We classified **341 white-collar occupations** across these phases using two public adoption datasets and an index of underlying AI capability. **Click any cell** to see the occupations in that bucket.
+Not every job sits in the same phase. We classified **341 white-collar occupations** across these phases using two public adoption datasets and an index of underlying AI capability. **Click any cell** to see the occupations in that bucket.
 
 [[s03-heatmap-caption]]
-AI integration phases across white-collar occupation groups · N = 341 · "ᴱ" marks *emerging* cohorts where frontier research is starting to push the work into the next phase
+AI integration phases across white-collar occupation groups · N = 341 · "ᴱ" marks *emerging* cohorts where frontier research is starting to push the work into the next phase. Software developers, for example, sit in the emerging Phase 4.
 
 [[s03-heatmap-empty]]
 Click any cell above to see the occupations in that bucket.
@@ -176,19 +169,16 @@ A quick way to locate yourself if your exact role isn't listed: *what's the larg
 Three habits to start practicing this week
 
 [[s04-intro]]
-Three habits, small enough to start today, that map onto the skills above:
+Three habits, small enough to start today. Each carves out a small space where you do the work AI would otherwise absorb, so you keep the skills that make using AI well sustainable:
 
 [[habit-1-name]] Pre-think
-[[habit-1-body]] Before you ask, take thirty seconds to write down what you think the answer is. Then ask. Then compare. This one habit changes AI from "answer machine" to "thinking partner."
+[[habit-1-body]] Before you ask, take ten seconds to note your initial guess at the answer. Then ask. Then compare. This one habit changes AI from "answer machine" to "thinking partner."
 
-[[habit-2-name]] Critique
-[[habit-2-body]] Read every AI output once with the assumption that it's wrong somewhere. The flaw is usually in the spot that sounds the most confident.
+[[habit-2-name]] Prepare
+[[habit-2-body]] Write test cases or success rubrics before you integrate AI-generated results into real work. This keeps quality high while you still gain the speed.
 
 [[habit-3-name]] Disconnect
 [[habit-3-body]] Once a week, do a task you usually delegate, entirely without AI. Not because AI is bad, but because this is how you check whether the underlying skill is still there.
-
-[[s04-takeaway]]
-**Why this works** — These aren't anti-AI practices. They're what makes pro-AI use sustainable. Each one carves out a small space where you do work AI would otherwise absorb, so the underlying capability stays alive when AI is wrong or unavailable.
 
 ---
 
