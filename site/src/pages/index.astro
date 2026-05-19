@@ -108,7 +108,7 @@ const jsonLd = [
   </header>
 
   {/* ─── Position-paper companion blog ───────────────────────────── */}
-  <section class="mx-auto max-w-[1180px] px-6 mt-20 reveal">
+  <section class="mx-auto max-w-[1180px] px-6 mt-12 reveal">
     <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16 gap-y-6">
       <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
         <p class="meta-label">The position</p>
@@ -131,7 +131,7 @@ const jsonLd = [
   </section>
 
   {/* ─── Primary axis: by phase ──────────────────────────────────── */}
-  <section class="mx-auto max-w-[1180px] px-6 mt-20 reveal">
+  <section class="mx-auto max-w-[1180px] px-6 mt-12 reveal">
     <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16">
       <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
         <p class="meta-label">Contents</p>
@@ -183,8 +183,36 @@ const jsonLd = [
     </div>
   </section>
 
+  {/* ─── Secondary axis: 5 paper themes ──────────────────────────── */}
+  <section class="mx-auto max-w-[1180px] px-6 mt-12 reveal">
+    <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16">
+      <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
+        <p class="meta-label">Secondary axis</p>
+        <p class="mt-3 text-[13px] text-ink-500 dark:text-ink-300 leading-relaxed max-w-[14em]">
+          Cross-cuts the phase axis with five thematic tags. A paper may have one or more.
+        </p>
+      </div>
+
+      <ol class="list-none p-0 max-w-[60ch]">
+        {ENV_ORDER.map((env) => (
+          <li>
+            <a
+              href={`${base}/papers?env=${encodeURIComponent(env)}`}
+              class="grid grid-cols-[48px_1fr_auto] gap-x-5 items-baseline py-4 border-t border-paper-300 dark:border-ink-600 group hover:bg-paper-200/40 dark:hover:bg-ink-700/20 transition-colors"
+            >
+              <span class="meta-value tabular-nums text-accent dark:text-accent-dark">{ENV_ABBREV[env]}</span>
+              <div class="font-display text-[16px] text-ink-700 dark:text-ink-50 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">{env}</div>
+              <span class="meta-label tabular-nums">{envCount[env] ?? 0}</span>
+            </a>
+          </li>
+        ))}
+        <li><div class="border-t border-paper-300 dark:border-ink-600"></div></li>
+      </ol>
+    </div>
+  </section>
+
   {/* ─── Maintained-by block ─────────────────────────────────────── */}
-  <section class="mx-auto max-w-[1180px] px-6 mt-20 reveal">
+  <section class="mx-auto max-w-[1180px] px-6 mt-12 reveal">
     <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16 gap-y-6">
       <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
         <p class="meta-label">Maintained by</p>
@@ -212,36 +240,8 @@ const jsonLd = [
     </div>
   </section>
 
-  {/* ─── Secondary axis: 5 paper themes ──────────────────────────── */}
-  <section class="mx-auto max-w-[1180px] px-6 mt-20 reveal">
-    <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16">
-      <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
-        <p class="meta-label">Secondary axis</p>
-        <p class="mt-3 text-[13px] text-ink-500 dark:text-ink-300 leading-relaxed max-w-[14em]">
-          Cross-cuts the phase axis with five thematic tags. A paper may have one or more.
-        </p>
-      </div>
-
-      <ol class="list-none p-0 max-w-[60ch]">
-        {ENV_ORDER.map((env) => (
-          <li>
-            <a
-              href={`${base}/papers?env=${encodeURIComponent(env)}`}
-              class="grid grid-cols-[48px_1fr_auto] gap-x-5 items-baseline py-4 border-t border-paper-300 dark:border-ink-600 group hover:bg-paper-200/40 dark:hover:bg-ink-700/20 transition-colors"
-            >
-              <span class="meta-value tabular-nums text-accent dark:text-accent-dark">{ENV_ABBREV[env]}</span>
-              <div class="font-display text-[16px] text-ink-700 dark:text-ink-50 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">{env}</div>
-              <span class="meta-label tabular-nums">{envCount[env] ?? 0}</span>
-            </a>
-          </li>
-        ))}
-        <li><div class="border-t border-paper-300 dark:border-ink-600"></div></li>
-      </ol>
-    </div>
-  </section>
-
   {/* ─── Colophon ──────────────────────────────────────────────── */}
-  <section class="mx-auto max-w-[1180px] px-6 mt-24 pb-20">
+  <section class="mx-auto max-w-[1180px] px-6 mt-12 pb-16">
     <div class="grid lg:grid-cols-[200px_minmax(0,1fr)] gap-x-16">
       <div class="lg:border-r border-paper-300 dark:border-ink-600 lg:pr-6">
         <p class="meta-label">Colophon</p>
